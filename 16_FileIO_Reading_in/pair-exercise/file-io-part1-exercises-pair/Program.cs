@@ -27,34 +27,21 @@ namespace file_io_part1_exercises_pair
                 {
                     while (!sr.EndOfStream)
                     {
-                        string allWords = sr.ReadLine();
-                        //string allWords = sr.ToString();
-                        string[] wordCountString = allWords.Split(" ");
-                        //List<string> wordCountString = new List<string>();
-                        //wordCountString = allWords.Split(" ")
+                        string allText = sr.ReadLine();
+                        string[] wordCountString = allText.Split(" ");
 
-                        //while(!sr.EndOfStream)
-
-                        //    sumOfWords++;
-                        //}
                         for (int i = 0; i < wordCountString.Length; i++)
                         {
                             sumOfWords = sumOfWords + 1;
                         }
 
+                        char[] delimiterChars = { '.', '!', '?' };
+                        string[] sentenceCountString = allText.Split(delimiterChars);
 
-
-                        //char[] delimiterChars = { '.', '!', '?' };
-                        //string allSentences = sr.ToString();
-                        //string[] sentenceCountString = allSentences.Split(delimiterChars);
-                        ////while(!sr.EndOfStream)
-                        ////{
-                        ////    sumOfSentences++;
-                        ////}   
-                        //for (int i = 0; i < sentenceCountString.Length; i++)
-                        //{
-                        //    sumOfSentences = sumOfSentences + 1;
-                        //}
+                        for (int i = 0; i < sentenceCountString.Length; i++)
+                        {
+                            sumOfSentences = sumOfSentences + 1;
+                        }
                     }
 
                 }
@@ -67,7 +54,7 @@ namespace file_io_part1_exercises_pair
             }
 
             Console.WriteLine("The total number of words used in the file is " + sumOfWords + ".");
-           // Console.WriteLine("The total number of sentences used in the file is " + sumOfSentences + ".");
+            Console.WriteLine("The total number of sentences used in the file is " + sumOfSentences + ".");
             Console.ReadLine();
 
             //C:\Users\roseb\team4-c-sharp-week4-pair-exercises\16_FileIO_Reading_in\pair-exercise
