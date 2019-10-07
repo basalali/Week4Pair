@@ -34,13 +34,25 @@ namespace file_io_part1_exercises_pair
                         {
                             sumOfWords = sumOfWords + 1;
                         }
-
-                        char[] delimiterChars = { '.', '!', '?' };
-                        string[] sentenceCountString = allText.Split(delimiterChars);
-
-                        for (int i = 0; i < sentenceCountString.Length; i++)
+      
+                        foreach(string word in wordCountString)
                         {
-                            sumOfSentences = sumOfSentences + 1;
+                            if (word.Contains("."))
+                            {
+                                sumOfSentences = sumOfSentences + 1;
+
+                            }
+                            else if (word.Contains("!"))
+                            {
+                                sumOfSentences = sumOfSentences + 1;
+
+                            }
+                            else if (word.Contains("?"))
+                            {
+                                sumOfSentences = sumOfSentences + 1;
+
+                            }
+
                         }
                     }
 
@@ -57,7 +69,7 @@ namespace file_io_part1_exercises_pair
             Console.WriteLine("The total number of sentences used in the file is " + sumOfSentences + ".");
             Console.ReadLine();
 
-            //C:\Users\roseb\team4-c-sharp-week4-pair-exercises\16_FileIO_Reading_in\pair-exercise
+            //C:\Users\basala\team4-c-sharp-week4-pair-exercises\16_FileIO_Reading_in\pair-exercise
         }
     }
 }
