@@ -26,7 +26,7 @@ namespace FindAndReplace
                 {
                     Console.WriteLine("Please enter a valid destination file path.");                 
                     destinationFilePath = Console.ReadLine();
-                    File.CreateText(destinationFilePath);
+                    //File.CreateText(destinationFilePath);
 
                 }
 
@@ -35,10 +35,8 @@ namespace FindAndReplace
                     Console.WriteLine("Error! There's already a file by that name in that location.");
                     Console.WriteLine(e.Message);
                     Console.ReadLine();
-
-
+                    destinationFilePath = "";
                 }
-
                 try
                 {
                     using (StreamReader sr = new StreamReader(currentFilePath))
