@@ -12,6 +12,9 @@ namespace Capstone.Classes
 
         private Catering catering = new Catering();
 
+        private List<CateringItem> items = new List<CateringItem>();
+
+
         public void RunInterface()
         {
             bool done = false;
@@ -58,7 +61,7 @@ namespace Capstone.Classes
 
         private void DisplayCateringItems()
         {
-            while()
+            while ()
             {
 
             }
@@ -92,5 +95,26 @@ namespace Capstone.Classes
                 }
             }
         }
+
+        private void ProductSelectionMenu()
+        {
+            FileAccess fileAccess = new FileAccess();
+            List<CateringItem> result = fileAccess.ReadFromFile();
+
+            if (result != null && result.Count > 0)
+            {
+                items = result;
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("Read from file failed");
+            }
+            Console.WriteLine();
+            return;
+
+        }
+
+
     }
 }
