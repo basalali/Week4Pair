@@ -11,5 +11,8 @@ namespace Capstone.Classes
         private List<CateringItem> items = new List<CateringItem>();
         private string filePath = @"C:\Catering";
 
+        // need to set accountBalance to 0 at beginning, reset after customer orders
+
     }
 }
+
