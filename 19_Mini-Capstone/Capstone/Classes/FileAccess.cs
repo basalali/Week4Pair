@@ -28,10 +28,10 @@ namespace Capstone.Classes
 
                         CateringItem items = new CateringItem();
                         items.IdentifierCode = values[0];
-                        items.Name = values[1];
-                        items.Type = values[2];
-                        items.Price = decimal.Parse(values[3]);
-                        items.startingQuantity = 50;
+                        items.Name = values[1];                       
+                        items.Price = decimal.Parse(values[2]);
+                        items.Type = values[3];
+                        items.Quantity = 50;
 
                         shoppingItems.Add(items);
 

@@ -14,7 +14,7 @@ namespace Capstone.Classes
 
         private Catering catering = new Catering();
 
-        private List<CateringItem> items = new List<CateringItem>();
+        
 
 
         public void RunInterface()
@@ -36,10 +36,10 @@ namespace Capstone.Classes
             {
                 switch (initialSelection)
                 {
-                    //case "1":
-                    //    DisplayCateringItems();
-                    //    Console.ReadLine();
-                    //    break;
+                    case "1":
+                        DisplaySelectionMenu();
+                        Console.ReadLine();
+                        break;
                     case "2":
                         PrintOrderMenu();
                         OrderSelection();
@@ -305,15 +305,15 @@ namespace Capstone.Classes
             return (hundreds + fifties + twenties + tens + fives + ones + quarters + dimes + nickels + pennies);
         }
 
-        private void ProductSelectionMenu()
+        private void DisplaySelectionMenu()
         {
-            FileAccess fileAccess = new FileAccess();
-            List<CateringItem> result = fileAccess.ReadFromFile();
-
+            List<CateringItem> result = catering.GetCateringItems();
             if (result != null && result.Count > 0)
             {
-                items = result;
-                Console.WriteLine();
+                foreach (CateringItem item in result)
+                {
+                    Console.WriteLine(item);
+                }
             }
             else
             {
