@@ -71,10 +71,12 @@ namespace Capstone.Classes
                         AddMoneySelection();
                         break;
                     case "2":
+                        Console.WriteLine();
                         Console.WriteLine("Please enter the product identifier code that you wish to purchase");
                         string userInputID = Console.ReadLine();
+                        Console.WriteLine();
                         Console.WriteLine("Please enter the number of items you wish to purchase.");
-                        int userInputAmount = Console.Read();
+                        int userInputAmount = Convert.ToInt32(Console.ReadLine());
                         ShoppingCartUI(userInputID, userInputAmount);
                         PrintShoppingCartMenu();
                         ShoppingCartMenuSelection();
@@ -89,11 +91,13 @@ namespace Capstone.Classes
                 orderSelection = Console.ReadLine();
             }
             Console.WriteLine();
-            Console.WriteLine("Your change is $" + catering.accountBalance + ". This will be ejected in the form of:");
+            Console.WriteLine("Your change is $" + catering.amountDueBack + ". This will be ejected in the form of:");
             Console.WriteLine(catering.ChangeReturned() + "momentarily.");
-            Console.WriteLine("Press enter to continue.");
+            Console.WriteLine("Press enter to continue to a new transaction.");
             Console.ReadLine();
-            return;
+
+            PrintInitialMenu();
+            string initialSelection = Console.ReadLine();
         }
 
         private void PrintOrderMenu()
@@ -101,18 +105,22 @@ namespace Capstone.Classes
             Console.WriteLine();
             Console.WriteLine("Please enter a choice:");
             Console.WriteLine("1 - Add money");
-            Console.WriteLine("2 - Select products");
-            Console.WriteLine("3 - Complete Transaction");
+            Console.WriteLine("2 - Select products to purchase");
+            Console.WriteLine("3 - Complete transaction");
             return;
         }
 
         private void PrintShoppingCartMenu()
         { 
             Console.WriteLine();
-            Console.WriteLine("Your account balance is: $" + catering.accountBalance);
-            Console.WriteLine("Contents of your shopping cart:");
+            Console.WriteLine("Current contents of your shopping cart:");
+            Console.WriteLine();
+            Console.WriteLine(String.Format("{0, -5} {1, -30} {2, -15} {3, -15} {4, -15}", "ID", "Name", "Price", "Type", "Quantity"));
             Console.WriteLine(catering.DisplayShoppingCart());
-            Console.WriteLine("1 - Add more items to your cart");
+            Console.WriteLine("Your current total is: $" + catering.ShoppingCartTotal());
+            Console.WriteLine("Your account balance is: $" + catering.accountBalance);
+            Console.WriteLine();
+            Console.WriteLine("1 - Add more items to your shopping cart");
             Console.WriteLine("2 - Return to Order Screen");
         }
 
@@ -124,10 +132,12 @@ namespace Capstone.Classes
                 switch (shoppingCartSelection)
                 {
                     case "1":
+                        Console.WriteLine();
                         Console.WriteLine("Please enter the product identifier code that you wish to purchase");
                         string userInputID = Console.ReadLine();
+                        Console.WriteLine();
                         Console.WriteLine("Please enter the number of items you wish to purchase.");
-                        int userInputAmount = Console.Read();
+                        int userInputAmount = Convert.ToInt32(Console.ReadLine());
                         ShoppingCartUI(userInputID, userInputAmount);
                         PrintShoppingCartMenu();
                         ShoppingCartMenuSelection();

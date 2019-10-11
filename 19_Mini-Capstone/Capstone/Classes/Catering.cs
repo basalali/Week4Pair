@@ -8,7 +8,9 @@ namespace Capstone.Classes
     {
 
         public decimal accountBalance { get; set; }
+        public decimal amountDueBack { get; set; }
 
+        private CateringItem temp = new CateringItem();
         private List<CateringItem> items = new List<CateringItem>();
         private List<CateringItem> shoppingCart = new List<CateringItem>();
         //private string filePath = @"C:\Catering";
@@ -24,14 +26,52 @@ namespace Capstone.Classes
         {
             return items;
         }
+
+        public void RemoveFromItem(string identifierCode, int quantity)
+        {
+            foreach (CateringItem item in items)
+            {
+                if (item.IdentifierCode == identifierCode)
+                {
+                    temp.IdentifierCode = identifierCode;
+                    temp.Name = item.Name;
+                    temp.Quantity = item.Quantity - quantity;
+                    temp.Type = item.Type;
+                    temp.Price = item.Price;
+                    items.Remove(item);
+                    items.Add(temp);
+                }
+            }
+        }
+
         public void AddToShoppingCart(string identifierCode, int quantity)
         {
-            CateringItem temp = new CateringItem();
-            temp.IdentifierCode = identifierCode;
-            temp.Quantity = quantity;
-            shoppingCart.Add(temp);
-
+            foreach(CateringItem item in items)
+            {
+                if (item.IdentifierCode == identifierCode)
+                {
+                    temp.IdentifierCode = identifierCode;
+                    temp.Name = item.Name;
+                    temp.Quantity = quantity;
+                    temp.Type = item.Type;
+                    temp.Price = item.Price;
+                    shoppingCart.Add(temp);
+                }
+            }
         }
+
+        public decimal ShoppingCartTotal()
+        {
+            decimal shoppingCartTotal = 0;
+            foreach(CateringItem product in shoppingCart)
+            {
+                shoppingCartTotal += (temp.Quantity * temp.Price);
+            }
+            amountDueBack = accountBalance - shoppingCartTotal;
+            return shoppingCartTotal;
+        }
+
+
         public string DisplayShoppingCart()
         {
             string display = "";
@@ -47,9 +87,7 @@ namespace Capstone.Classes
             else
             {
                 return "Read from file failed";
-            }
-       
-
+            }       
         }
 
         //public string UpdateInventoryItems()
@@ -157,10 +195,10 @@ namespace Capstone.Classes
         {
             int numberOfHundreds = 0;
             string hundreds = "";
-            while (accountBalance >= 100M)
+            while (amountDueBack >= 100M)
             {
                 numberOfHundreds++;
-                accountBalance -= 100M;
+                amountDueBack -= 100M;
             }
             if (numberOfHundreds > 0)
             {
@@ -169,10 +207,10 @@ namespace Capstone.Classes
 
             int numberOfFifties = 0;
             string fifties = "";
-            while (accountBalance >= 50M)
+            while (amountDueBack >= 50M)
             {
                 numberOfFifties++;
-                accountBalance -= 50M;
+                amountDueBack -= 50M;
             }
             if (numberOfFifties > 0)
             {
@@ -181,10 +219,10 @@ namespace Capstone.Classes
 
             int numberOfTwenties = 0;
             string twenties = "";
-            while (accountBalance >= 20M)
+            while (amountDueBack >= 20M)
             {
                 numberOfTwenties++;
-                accountBalance -= 20M;
+                amountDueBack -= 20M;
             }
             if (numberOfTwenties > 0)
             {
@@ -193,10 +231,10 @@ namespace Capstone.Classes
 
             int numberOfTens = 0;
             string tens = "";
-            while (accountBalance >= 10M)
+            while (amountDueBack >= 10M)
             {
                 numberOfTens++;
-                accountBalance -= 10M;
+                amountDueBack -= 10M;
             }
             if (numberOfTens > 0)
             {
@@ -205,10 +243,10 @@ namespace Capstone.Classes
 
             int numberOfFives = 0;
             string fives = "";
-            while (accountBalance >= 5M)
+            while (amountDueBack >= 5M)
             {
                 numberOfFives++;
-                accountBalance -= 5M;
+                amountDueBack -= 5M;
             }
             if (numberOfFives > 0)
             {
@@ -217,10 +255,10 @@ namespace Capstone.Classes
 
             int numberOfOnes = 0;
             string ones = "";
-            while (accountBalance >= 1M)
+            while (amountDueBack >= 1M)
             {
                 numberOfOnes++;
-                accountBalance -= 1M;
+                amountDueBack -= 1M;
             }
             if (numberOfOnes > 0)
             {
@@ -229,10 +267,10 @@ namespace Capstone.Classes
 
             int numberOfQuarters = 0;
             string quarters = "";
-            while (accountBalance >= .25M)
+            while (amountDueBack >= .25M)
             {
                 numberOfQuarters++;
-                accountBalance -= .25M;
+                amountDueBack -= .25M;
             }
             if (numberOfQuarters > 0)
             {
@@ -241,10 +279,10 @@ namespace Capstone.Classes
 
             int numberOfDimes = 0;
             string dimes = "";
-            while (accountBalance >= .1M)
+            while (amountDueBack >= .1M)
             {
                 numberOfDimes++;
-                accountBalance -= .1M;
+                amountDueBack -= .1M;
             }
             if (numberOfDimes > 0)
             {
@@ -253,10 +291,10 @@ namespace Capstone.Classes
 
             int numberOfNickels = 0;
             string nickels = "";
-            while (accountBalance >= .05M)
+            while (amountDueBack >= .05M)
             {
                 numberOfNickels++;
-                accountBalance -= .05M;
+                amountDueBack -= .05M;
             }
             if (numberOfNickels > 0)
             {
@@ -265,16 +303,17 @@ namespace Capstone.Classes
 
             int numberOfPennies = 0;
             string pennies = "";
-            while (accountBalance >= .01M)
+            while (amountDueBack >= .01M)
             {
                 numberOfPennies++;
-                accountBalance -= .01M;
+                amountDueBack -= .01M;
             }
             if (numberOfPennies > 0)
             {
                 pennies = (numberOfPennies + " penny(s) ");
             }
 
+            accountBalance = amountDueBack;
             return (hundreds + fifties + twenties + tens + fives + ones + quarters + dimes + nickels + pennies);
         }
 
