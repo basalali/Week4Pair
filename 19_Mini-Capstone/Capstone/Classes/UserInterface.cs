@@ -6,14 +6,14 @@ namespace Capstone.Classes
 {
     public class UserInterface
     {
-        // This class provides all user communications, but not much else.
-        // All the "work" of the application should be done elsewhere
-        // All instance of Console.ReadLine and Console.WriteLine should be in this class.
 
+        private List<CateringItem> items = new List<CateringItem>();       
+        static public Catering catering = new Catering();
 
-        private Catering catering = new Catering();
-        private List<CateringItem> items = new List<CateringItem>();
+       CateringItem type = new CateringItem();
+       List<CateringItem> result = catering.GetCateringItems();
 
+       int numberOfItems = 0;
 
         public void RunInterface()
         {
@@ -31,13 +31,14 @@ namespace Capstone.Classes
             {
                 switch (initialSelection)
                 {
-                    //case "1":
-                    //    DisplayCateringItems();
-                    //    Console.ReadLine();
-                    //    break;
-                    case "2":
+                    case "1":                    
+                        DisplaySelectionMenu();                       
+                        Console.ReadLine();
+                        break;
+                    case "2":                       
                         PrintOrderMenu();
                         OrderSelection();
+                        Console.ReadLine();
                         break;
                     default:
                         Console.WriteLine();
@@ -71,7 +72,10 @@ namespace Capstone.Classes
                         AddMoneySelection();
                         break;
                     case "2":
-                        //SelectProducts();
+                        Console.WriteLine("Please enter the product identifier code that you wish to purchase");
+                        string userInput = Console.ReadLine();
+                        catering.ProductExists(userInput);
+
                         break;
                     default:
                         Console.WriteLine();
@@ -182,15 +186,14 @@ namespace Capstone.Classes
             return;
         }
 
-        private void ProductSelectionMenu()
-        {
-            FileAccess fileAccess = new FileAccess();
-            List<CateringItem> result = fileAccess.ReadFromFile();
-
+        private void DisplaySelectionMenu()
+        {          
             if (result != null && result.Count > 0)
             {
-                items = result;
-                Console.WriteLine();
+                foreach (CateringItem item in result)
+                {
+                    Console.WriteLine(item);
+                }
             }
             else
             {
@@ -199,7 +202,39 @@ namespace Capstone.Classes
             Console.WriteLine();
             return;
 
+        }           
+
+        private void ProductSoldOut()
+        {
+            
+            if (type.Quantity == 0 )
+            {
+                Console.WriteLine();
+                Console.WriteLine("This product is sold out.");
+
+            }
+
+            Console.WriteLine();
+            return;
+
         }
+
+        private void InsufficientStock()
+        {
+           
+            if (type.Quantity < numberOfItems)
+            {
+                Console.WriteLine();
+                Console.WriteLine("There is insufficient stock.");
+
+            }
+
+            Console.WriteLine();
+            return;
+
+        }
+
+
 
 
     }
