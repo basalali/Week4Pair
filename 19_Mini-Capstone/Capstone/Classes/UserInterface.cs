@@ -141,27 +141,24 @@ namespace Capstone.Classes
 
         public void ShoppingCartUI(string userInputID, int userInputAmount)
         {
-
-            if (!catering.ProductExists(userInputID, userInputAmount))
+            while (!catering.ProductExists(userInputID, userInputAmount) || !catering.ProductAvailable(userInputID, userInputAmount) || !catering.SufficientStock(userInputID, userInputAmount))
             {
-                Console.WriteLine("Product does not exist, please make another selection.");
+                if (!catering.ProductExists(userInputID, userInputAmount))
+                {
+                    Console.WriteLine("Product does not exist, please make another selection.");
+                }
+                else if (!catering.ProductAvailable(userInputID, userInputAmount))
+                {
+                    Console.WriteLine("Product is sold out, please make another selection.");
+                }
+                else if (!catering.SufficientStock(userInputID, userInputAmount))
+                {
+                    Console.WriteLine("Insufficient stock, please make another selection.");
+                }            
             }
-            else if (!catering.ProductAvailable(userInputID, userInputAmount))
-            {
-                Console.WriteLine("Product is sold out, please make another selection.");
-            }
-            else if (!catering.SufficientStock(userInputID, userInputAmount))
-            {
-                Console.WriteLine("Insufficient stock, please make another selection.");
-            }
-            else
-            {
                 catering.AddToShoppingCart(userInputID, userInputAmount);
-
-            }
-
         }
-       
+        
 
         private void AddMoney(string incomingMoney)
         {
