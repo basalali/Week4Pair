@@ -76,8 +76,9 @@ namespace Capstone.Classes
                         Console.WriteLine("Please enter the number of items you wish to purchase.");
                         int userInputAmount = Console.Read();
                         ShoppingCartUI(userInputID, userInputAmount);
-                        catering.DisplayShoppingCart();
-                    
+                        PrintShoppingCartMenu();
+                        ShoppingCartMenuSelection();
+                        //catering.DisplayShoppingCart();                        
                         break;
                     default:
                         Console.WriteLine();
@@ -103,6 +104,42 @@ namespace Capstone.Classes
             Console.WriteLine("2 - Select products");
             Console.WriteLine("3 - Complete Transaction");
             return;
+        }
+
+        private void PrintShoppingCartMenu()
+        { 
+            Console.WriteLine();
+            Console.WriteLine("Your account balance is: $" + catering.accountBalance);
+            Console.WriteLine("Contents of your shopping cart:");
+            Console.WriteLine(catering.DisplayShoppingCart());
+            Console.WriteLine("1 - Add more items to your cart");
+            Console.WriteLine("2 - Return to Order Screen");
+        }
+
+        private void ShoppingCartMenuSelection()
+        {
+            string shoppingCartSelection = Console.ReadLine();
+            while (shoppingCartSelection != "2")
+            {
+                switch (shoppingCartSelection)
+                {
+                    case "1":
+                        Console.WriteLine("Please enter the product identifier code that you wish to purchase");
+                        string userInputID = Console.ReadLine();
+                        Console.WriteLine("Please enter the number of items you wish to purchase.");
+                        int userInputAmount = Console.Read();
+                        ShoppingCartUI(userInputID, userInputAmount);
+                        PrintShoppingCartMenu();
+                        ShoppingCartMenuSelection();
+                        break;
+                    default:
+                        Console.WriteLine();
+                        Console.WriteLine("Please make a valid selection.");
+                        break;
+                }
+                PrintShoppingCartMenu();
+                shoppingCartSelection = Console.ReadLine();
+            }
         }
 
         private void AddMoneySelection()

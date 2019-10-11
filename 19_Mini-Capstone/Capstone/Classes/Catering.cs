@@ -52,13 +52,13 @@ namespace Capstone.Classes
 
         }
 
-        public string UpdateInventoryItems()
-        {
+        //public string UpdateInventoryItems()
+        //{
 
 
             //todo- updating inventory items from shoppingitemcart(list)
             //clear out shopping cart
-        }
+        //}
 
         public string DisplaySelectionMenu()
         {
