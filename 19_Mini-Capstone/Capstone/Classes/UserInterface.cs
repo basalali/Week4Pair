@@ -6,17 +6,9 @@ namespace Capstone.Classes
 {
     public class UserInterface
     {
-
-        private List<CateringItem> items = new List<CateringItem>();       
-        static public Catering catering = new Catering();
-
-       CateringItem type = new CateringItem();
-       List<CateringItem> result = catering.GetCateringItems();
-
-       int numberOfItems = 0;
-
         public void RunInterface()
         {
+            Catering catering = new Catering();
             bool done = false;
             while (!done)
             {
@@ -31,9 +23,10 @@ namespace Capstone.Classes
             {
                 switch (initialSelection)
                 {
-                    case "1":                    
-                        DisplaySelectionMenu();                       
-                        Console.ReadLine();
+                    case "1":
+                        Console.WriteLine();
+                        Console.WriteLine(String.Format("{0, -5} {1, -30} {2, -15} {3, -15} {4, -15}", "ID", "Name", "Price", "Type", "Quantity"));
+                        Console.Write(catering.DisplaySelectionMenu());                       
                         break;
                     case "2":                       
                         PrintOrderMenu();
@@ -61,13 +54,14 @@ namespace Capstone.Classes
 
         private void OrderSelection()
         {
+            Catering catering = new Catering();
             string orderSelection = Console.ReadLine();
             while (orderSelection != "3")
             {
                 switch (orderSelection)
                 {
                     case "1":
-                        AddMoney();
+                        catering.AddMoney();
                         PrintAddMoneyMenu();
                         AddMoneySelection();
                         break;
@@ -103,69 +97,16 @@ namespace Capstone.Classes
             return;
         }
 
-        public void AddMoney()
-        {
-            Console.WriteLine();
-            Console.WriteLine("Please insert money.");
-
-            decimal incomingMoney = 0;
-            while (incomingMoney == 0)
-                try
-                {
-                    incomingMoney = Convert.ToDecimal(Console.ReadLine());
-                }
-                catch (FormatException e)
-                {
-                    Console.WriteLine();
-                    Console.WriteLine("Please enter amount in arabic numerals (ex. 1, 15.50, 3500)");
-                    Console.WriteLine(e);
-                }
-
-            while (incomingMoney < 0)
-            {
-                Console.WriteLine();
-                Console.WriteLine("Please enter a positive number");
-                try
-                {
-                    incomingMoney = Convert.ToDecimal(Console.ReadLine());
-                }
-                catch (FormatException e)
-                {
-                    Console.WriteLine();
-                    Console.WriteLine("Please enter amount in arabic numerals (ex. 1, 15.50, 3500)");
-                    Console.WriteLine(e);
-                }
-            }
-
-            while (incomingMoney + catering.accountBalance > 5000)
-            {
-                Console.WriteLine();
-                Console.WriteLine("The maximum account balance allowed is $5000. Your account is currently at $" + catering.accountBalance + ".");
-                Console.WriteLine("The most you are able to deposit at this time is $" + (5000 - catering.accountBalance) + ". Please enter a valid deposit amount.");
-                try
-                {
-                    incomingMoney = Convert.ToDecimal(Console.ReadLine());
-                }
-                catch (FormatException e)
-                {
-                    Console.WriteLine();
-                    Console.WriteLine("Please enter amount in arabic numerals (ex. 1, 15.50, 3500)");
-                    Console.WriteLine(e);
-                }
-            }
-            catering.accountBalance += incomingMoney;
-            return;
-        }
-
         private void AddMoneySelection()
         {
+            Catering catering = new Catering();
             string addMoneySelection = Console.ReadLine();
             while (addMoneySelection != "2")
             {
                 switch (addMoneySelection)
                 {
                     case "1":
-                        AddMoney();
+                        catering.AddMoney();
                         break;
                     default:
                         Console.WriteLine();
@@ -179,63 +120,12 @@ namespace Capstone.Classes
 
         private void PrintAddMoneyMenu()
         {
+            Catering catering = new Catering();
             Console.WriteLine();
             Console.WriteLine("Your account balance is: $" + catering.accountBalance);
             Console.WriteLine("1 - Add more money");
             Console.WriteLine("2 - Return to Order Screen");
             return;
-        }
-
-        private void DisplaySelectionMenu()
-        {          
-            if (result != null && result.Count > 0)
-            {
-                foreach (CateringItem item in result)
-                {
-                    Console.WriteLine(item);
-                }
-            }
-            else
-            {
-                Console.WriteLine("Read from file failed");
-            }
-            Console.WriteLine();
-            return;
-
-        }           
-
-        private void ProductSoldOut()
-        {
-            
-            if (type.Quantity == 0 )
-            {
-                Console.WriteLine();
-                Console.WriteLine("This product is sold out.");
-
-            }
-
-            Console.WriteLine();
-            return;
-
-        }
-
-        private void InsufficientStock()
-        {
-           
-            if (type.Quantity < numberOfItems)
-            {
-                Console.WriteLine();
-                Console.WriteLine("There is insufficient stock.");
-
-            }
-
-            Console.WriteLine();
-            return;
-
-        }
-
-
-
-
+        }        
     }
 }

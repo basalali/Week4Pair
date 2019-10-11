@@ -10,7 +10,9 @@ namespace Capstone.Classes
         public decimal accountBalance { get; set; }
 
         private List<CateringItem> items = new List<CateringItem>();
+        private List<CateringItem> shoppingCart = new List<CateringItem>();
         private string filePath = @"C:\Catering";
+
         
         public Catering()
         {
@@ -21,10 +23,26 @@ namespace Capstone.Classes
         public List<CateringItem> GetCateringItems()
         {
             return items;
-
         }
 
-        private List<CateringItem> shoppingCart = new List<CateringItem>();
+        public string DisplaySelectionMenu()
+        {
+            string display = "";
+            if (items != null && items.Count > 0)
+            {
+                foreach (CateringItem item in items)
+                {
+                    display = display + item + Environment.NewLine;
+
+                }
+                return display;
+            }
+            else
+            {
+                return "Read from file failed";
+            }
+           // return "";
+        }
 
         public bool ProductExists(string identifierCode)
         {
@@ -40,7 +58,81 @@ namespace Capstone.Classes
             return result;
         }
 
+        public bool ProductSoldOut()
+        {
+            bool exists = true;
+            CateringItem cateringItem = new CateringItem();
+            if (cateringItem.Quantity == 0)
+            {
+                exists = false;
+            }
+            return exists;
+        }
 
+        private bool InsufficientStock(int desiredAmount)
+        {
+            bool exists = true;
+            CateringItem cateringItem = new CateringItem();
+            if (cateringItem.Quantity < desiredAmount)
+            {
+                exists = false;
+            }
+            return exists;
+        }
+
+        public void AddMoney()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Please insert money.");
+
+            decimal incomingMoney = 0;
+            while (incomingMoney == 0)
+                try
+                {
+                    incomingMoney = Convert.ToDecimal(Console.ReadLine());
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Please enter amount in arabic numerals (ex. 1, 15.50, 3500)");
+                    Console.WriteLine(e);
+                }
+
+            while (incomingMoney < 0)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Please enter a positive number");
+                try
+                {
+                    incomingMoney = Convert.ToDecimal(Console.ReadLine());
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Please enter amount in arabic numerals (ex. 1, 15.50, 3500)");
+                    Console.WriteLine(e);
+                }
+            }
+
+            while (incomingMoney + accountBalance > 5000)
+            {
+                Console.WriteLine();
+                Console.WriteLine("The maximum account balance allowed is $5000. Your account is currently at $" + accountBalance + ".");
+                Console.WriteLine("The most you are able to deposit at this time is $" + (5000 - accountBalance) + ". Please enter a valid deposit amount.");
+                try
+                {
+                    incomingMoney = Convert.ToDecimal(Console.ReadLine());
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Please enter amount in arabic numerals (ex. 1, 15.50, 3500)");
+                    Console.WriteLine(e);
+                }
+            }
+            accountBalance += incomingMoney;
+            return;
+        }
 
         public string ChangeReturned()
         {
