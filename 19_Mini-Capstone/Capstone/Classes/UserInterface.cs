@@ -7,16 +7,18 @@ namespace Capstone.Classes
     public class UserInterface
     {
         Catering catering = new Catering();
+
+   
         public void RunInterface()
         {
-            
+
             bool done = false;
             while (!done)
             {
                 Console.WriteLine("This is the UserInterface");
                 catering.accountBalance = 0;
                 done = true;
-            }            
+            }
 
             PrintInitialMenu();
             string initialSelection = Console.ReadLine();
@@ -27,9 +29,9 @@ namespace Capstone.Classes
                     case "1":
                         Console.WriteLine();
                         Console.WriteLine(String.Format("{0, -5} {1, -30} {2, -15} {3, -15} {4, -15}", "ID", "Name", "Price", "Type", "Quantity"));
-                        Console.Write(catering.DisplaySelectionMenu());                       
+                        Console.Write(catering.DisplaySelectionMenu());
                         break;
-                    case "2":                       
+                    case "2":
                         PrintOrderMenu();
                         OrderSelection();
                         Console.ReadLine();
@@ -41,7 +43,7 @@ namespace Capstone.Classes
                 }
                 PrintInitialMenu();
                 initialSelection = Console.ReadLine();
-            }           
+            }
         }
         private void PrintInitialMenu()
         {
@@ -55,14 +57,16 @@ namespace Capstone.Classes
 
         private void OrderSelection()
         {
-            Catering catering = new Catering();
             string orderSelection = Console.ReadLine();
             while (orderSelection != "3")
             {
                 switch (orderSelection)
                 {
                     case "1":
-                        catering.AddMoney();
+                        Console.WriteLine();
+                        Console.WriteLine("Please insert money.");
+                        string incomingMoney = Console.ReadLine();
+                        AddMoney(incomingMoney);
                         PrintAddMoneyMenu();
                         AddMoneySelection();
                         break;
@@ -103,14 +107,18 @@ namespace Capstone.Classes
 
         private void AddMoneySelection()
         {
-            Catering catering = new Catering();
             string addMoneySelection = Console.ReadLine();
             while (addMoneySelection != "2")
             {
                 switch (addMoneySelection)
                 {
                     case "1":
-                        catering.AddMoney();
+                        Console.WriteLine();
+                        Console.WriteLine("Please insert money.");
+                        string incomingMoney = Console.ReadLine();
+                        AddMoney(incomingMoney);
+                        PrintAddMoneyMenu();
+                        AddMoneySelection();
                         break;
                     default:
                         Console.WriteLine();
@@ -124,14 +132,13 @@ namespace Capstone.Classes
 
         private void PrintAddMoneyMenu()
         {
-            Catering catering = new Catering();
             Console.WriteLine();
             Console.WriteLine("Your account balance is: $" + catering.accountBalance);
             Console.WriteLine("1 - Add more money");
             Console.WriteLine("2 - Return to Order Screen");
             return;
         }
-        
+
         public void ShoppingCartUI(string userInputID, int userInputAmount)
         {
 
@@ -150,9 +157,42 @@ namespace Capstone.Classes
             else
             {
                 catering.AddToShoppingCart(userInputID, userInputAmount);
-              
+
             }
 
+        }
+       
+
+        private void AddMoney(string incomingMoney)
+        {
+            catering.ConvertMoneyToDecimal(incomingMoney);
+            while (!catering.ConvertMoneyToDecimal(incomingMoney))
+            {
+                Console.WriteLine();
+                Console.WriteLine("Please enter a numeral (ex: 1, 15, 75.50, etc):");
+                incomingMoney = Console.ReadLine();
+                catering.ConvertMoneyToDecimal(incomingMoney);
+            }
+
+            decimal decimalIncomingMoney = Convert.ToDecimal(incomingMoney);
+
+            catering.IsPositive(decimalIncomingMoney);
+            while (!catering.IsPositive(decimalIncomingMoney))
+            {
+                Console.WriteLine();
+                Console.WriteLine("Please enter a positive number:");
+                decimalIncomingMoney = Convert.ToDecimal(Console.ReadLine());
+            }
+
+            catering.LessThan5000(decimalIncomingMoney);
+            while (!catering.LessThan5000(decimalIncomingMoney))
+            {
+                Console.WriteLine();
+                Console.WriteLine("The maximum account balance allowed is $5000.");
+                Console.WriteLine("Your current balance is: $" + catering.accountBalance + ".");
+                decimalIncomingMoney = Convert.ToDecimal(Console.ReadLine());
+            }
+            catering.accountBalance += decimalIncomingMoney;
 
         }
     }
