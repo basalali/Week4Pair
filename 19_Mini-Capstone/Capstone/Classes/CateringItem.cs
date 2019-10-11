@@ -12,8 +12,7 @@ namespace Capstone.Classes
         public decimal Price { get; set; }
         public string Type { get; set; } = "";
         public int Quantity { get; set; } = 50;
-       
-
+      
        
         public CateringItem()
         {
@@ -30,9 +29,8 @@ namespace Capstone.Classes
         public override string ToString()
       
         {
-            //return IdentifierCode.PadRight(20) + Name.PadRight(15) + Price.ToString("F2").PadRight(20) + Type.PadRight(10) + startingQuantity;
+        
             return String.Format("{0, -5} {1, -30} {2, -15} {3, -15} {4, -15}", IdentifierCode, Name, Price, Type, Quantity);
-
         }
     }
 }

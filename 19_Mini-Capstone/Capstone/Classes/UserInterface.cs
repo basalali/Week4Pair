@@ -12,9 +12,10 @@ namespace Capstone.Classes
 
         public decimal accountBalance { get; set; } 
 
-        private Catering catering = new Catering();
+        static public Catering catering = new Catering();
 
-        
+        CateringItem type = new CateringItem();
+        List<CateringItem> result = catering.GetCateringItems();
 
 
         public void RunInterface()
@@ -98,6 +99,8 @@ namespace Capstone.Classes
                         break;
                     case "2":
                         //SelectProducts();
+                        ProductDoesntExist();
+
                         break;
                     default:
                         Console.WriteLine();
@@ -306,8 +309,7 @@ namespace Capstone.Classes
         }
 
         private void DisplaySelectionMenu()
-        {
-            List<CateringItem> result = catering.GetCateringItems();
+        {          
             if (result != null && result.Count > 0)
             {
                 foreach (CateringItem item in result)
@@ -323,6 +325,53 @@ namespace Capstone.Classes
             return;
 
         }
+
+        private void ProductDoesntExist()
+        {
+           
+            if (type.IdentifierCode )
+            {
+                    Console.WriteLine();
+                    Console.WriteLine("This product does not exist.");
+                
+            }        
+           
+            Console.WriteLine();
+            return;
+
+        }
+
+        private void ProductSoldOut()
+        {
+            
+            if (type.Quantity == 0 )
+            {
+                Console.WriteLine();
+                Console.WriteLine("This product is sold out.");
+
+            }
+
+            Console.WriteLine();
+            return;
+
+        }
+
+        private void InsufficientStock()
+        {
+           
+            if (type.Quantity == 0)
+            {
+                Console.WriteLine();
+                Console.WriteLine("There is insufficient stock.");
+
+            }
+
+            Console.WriteLine();
+            return;
+
+        }
+
+
 
 
     }
