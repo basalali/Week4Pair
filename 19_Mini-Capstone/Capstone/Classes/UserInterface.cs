@@ -183,17 +183,23 @@ namespace Capstone.Classes
                 if (!catering.ProductExists(userInputID, userInputAmount))
                 {
                     Console.WriteLine("Product does not exist, please make another selection.");
+                    userInputID = Console.ReadLine();
                 }
                 else if (!catering.ProductAvailable(userInputID, userInputAmount))
                 {
                     Console.WriteLine("Product is sold out, please make another selection.");
+                    userInputID = Console.ReadLine();
                 }
                 else if (!catering.SufficientStock(userInputID, userInputAmount))
                 {
                     Console.WriteLine("Insufficient stock, please make another selection.");
+                    userInputAmount = Convert.ToInt32(Console.ReadLine());
                 }            
             }
-                catering.AddToShoppingCart(userInputID, userInputAmount);
+            if (userInputAmount > 0)
+            { catering.AddToShoppingCart(userInputID, userInputAmount);
+            }
+
         }
         
 
