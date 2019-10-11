@@ -24,6 +24,41 @@ namespace Capstone.Classes
         {
             return items;
         }
+        public void AddToShoppingCart(string identifierCode, int quantity)
+        {
+            CateringItem temp = new CateringItem();
+            temp.IdentifierCode = identifierCode;
+            temp.Quantity = quantity;
+            shoppingCart.Add(temp);
+
+        }
+        public string DisplayShoppingCart()
+        {
+            string display = "";
+            if (shoppingCart != null && shoppingCart.Count > 0)
+            {
+                foreach (CateringItem item in shoppingCart)
+                {
+                    display = display + item + Environment.NewLine;
+
+                }
+                return display;
+            }
+            else
+            {
+                return "Read from file failed";
+            }
+       
+
+        }
+
+        public string UpdateInventoryItems()
+        {
+
+
+            //todo- updating inventory items from shoppingitemcart(list)
+            //clear out shopping cart
+        }
 
         public string DisplaySelectionMenu()
         {
@@ -44,7 +79,7 @@ namespace Capstone.Classes
            // return "";
         }
 
-        public bool ProductExists(string identifierCode)
+        public bool ProductExists(string identifierCode, int desiredAmount)
         {
             bool result = false;
             foreach(CateringItem item in items)
@@ -58,24 +93,30 @@ namespace Capstone.Classes
             return result;
         }
 
-        public bool ProductSoldOut()
+        public bool ProductAvailable(string identifierCode, int desiredAmount)
         {
-            bool exists = true;
-            CateringItem cateringItem = new CateringItem();
-            if (cateringItem.Quantity == 0)
+            bool exists = false;
+            foreach (CateringItem item in items)
             {
-                exists = false;
+                if (item.IdentifierCode == identifierCode && item.Quantity > 0)
+                {
+                    exists = true;
+                }
             }
             return exists;
         }
 
-        private bool InsufficientStock(int desiredAmount)
+        public bool SufficientStock(string identifierCode, int desiredAmount)
         {
-            bool exists = true;
-            CateringItem cateringItem = new CateringItem();
-            if (cateringItem.Quantity < desiredAmount)
+            bool exists = false;
+       
+            foreach (CateringItem item in items)
             {
-                exists = false;
+               
+                if (item.IdentifierCode == identifierCode && item.Quantity >= desiredAmount)
+                {
+                    exists = true;
+                }
             }
             return exists;
         }

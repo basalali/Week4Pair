@@ -6,9 +6,10 @@ namespace Capstone.Classes
 {
     public class UserInterface
     {
+        Catering catering = new Catering();
         public void RunInterface()
         {
-            Catering catering = new Catering();
+            
             bool done = false;
             while (!done)
             {
@@ -67,9 +68,12 @@ namespace Capstone.Classes
                         break;
                     case "2":
                         Console.WriteLine("Please enter the product identifier code that you wish to purchase");
-                        string userInput = Console.ReadLine();
-                        catering.ProductExists(userInput);
-
+                        string userInputID = Console.ReadLine();
+                        Console.WriteLine("Please enter the number of items you wish to purchase.");
+                        int userInputAmount = Console.Read();
+                        ShoppingCartUI(userInputID, userInputAmount);
+                        catering.DisplayShoppingCart();
+                    
                         break;
                     default:
                         Console.WriteLine();
@@ -126,6 +130,30 @@ namespace Capstone.Classes
             Console.WriteLine("1 - Add more money");
             Console.WriteLine("2 - Return to Order Screen");
             return;
-        }        
+        }
+        
+        public void ShoppingCartUI(string userInputID, int userInputAmount)
+        {
+
+            if (!catering.ProductExists(userInputID, userInputAmount))
+            {
+                Console.WriteLine("Product does not exist, please make another selection.");
+            }
+            else if (!catering.ProductAvailable(userInputID, userInputAmount))
+            {
+                Console.WriteLine("Product is sold out, please make another selection.");
+            }
+            else if (!catering.SufficientStock(userInputID, userInputAmount))
+            {
+                Console.WriteLine("Insufficient stock, please make another selection.");
+            }
+            else
+            {
+                catering.AddToShoppingCart(userInputID, userInputAmount);
+              
+            }
+
+
+        }
     }
 }
