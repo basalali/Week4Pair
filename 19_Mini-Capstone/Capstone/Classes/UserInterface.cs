@@ -8,7 +8,7 @@ namespace Capstone.Classes
     {
         Catering catering = new Catering();
 
-   
+
         public void RunInterface()
         {
 
@@ -21,6 +21,10 @@ namespace Capstone.Classes
             }
 
             PrintInitialMenu();
+            InitialSelection();
+        }
+        public void InitialSelection()
+        {
             string initialSelection = Console.ReadLine();
             while (initialSelection != "3")
             {
@@ -78,9 +82,9 @@ namespace Capstone.Classes
                         Console.WriteLine("Please enter the number of items you wish to purchase.");
                         int userInputAmount = Convert.ToInt32(Console.ReadLine());
                         ShoppingCartUI(userInputID, userInputAmount);
+                        catering.RemoveFromItem(userInputID, userInputAmount);
                         PrintShoppingCartMenu();
-                        ShoppingCartMenuSelection();
-                        //catering.DisplayShoppingCart();                        
+                        ShoppingCartMenuSelection();                       
                         break;
                     default:
                         Console.WriteLine();
@@ -97,7 +101,7 @@ namespace Capstone.Classes
             Console.ReadLine();
 
             PrintInitialMenu();
-            string initialSelection = Console.ReadLine();
+            InitialSelection();
         }
 
         private void PrintOrderMenu()
@@ -111,13 +115,13 @@ namespace Capstone.Classes
         }
 
         private void PrintShoppingCartMenu()
-        { 
+        {
             Console.WriteLine();
             Console.WriteLine("Current contents of your shopping cart:");
             Console.WriteLine();
             Console.WriteLine(String.Format("{0, -5} {1, -30} {2, -15} {3, -15} {4, -15}", "ID", "Name", "Price", "Type", "Quantity"));
             Console.WriteLine(catering.DisplayShoppingCart());
-            Console.WriteLine("Your current total is: $" + catering.ShoppingCartTotal());
+            Console.WriteLine("Your current total is: $" + catering.shoppingCartTotal);
             Console.WriteLine("Your account balance is: $" + catering.accountBalance);
             Console.WriteLine();
             Console.WriteLine("1 - Add more items to your shopping cart");
@@ -139,6 +143,7 @@ namespace Capstone.Classes
                         Console.WriteLine("Please enter the number of items you wish to purchase.");
                         int userInputAmount = Convert.ToInt32(Console.ReadLine());
                         ShoppingCartUI(userInputID, userInputAmount);
+                        catering.RemoveFromItem(userInputID, userInputAmount);
                         PrintShoppingCartMenu();
                         ShoppingCartMenuSelection();
                         break;
@@ -204,46 +209,49 @@ namespace Capstone.Classes
                 {
                     Console.WriteLine("Insufficient stock, please make another selection.");
                     userInputAmount = Convert.ToInt32(Console.ReadLine());
-                }            
+                }
             }
             if (userInputAmount > 0)
-            { catering.AddToShoppingCart(userInputID, userInputAmount);
+            {
+                catering.AddToShoppingCart(userInputID, userInputAmount);
             }
 
         }
-        
 
-        private void AddMoney(string incomingMoney)
+
+        private void AddMoney(string userMoneyInput)
         {
-            catering.ConvertMoneyToDecimal(incomingMoney);
-            while (!catering.ConvertMoneyToDecimal(incomingMoney))
-            {
-                Console.WriteLine();
-                Console.WriteLine("Please enter a numeral (ex: 1, 15, 75.50, etc):");
-                incomingMoney = Console.ReadLine();
-                catering.ConvertMoneyToDecimal(incomingMoney);
-            }
+            decimal incomingMoney = Convert.ToDecimal(userMoneyInput);
 
-            decimal decimalIncomingMoney = Convert.ToDecimal(incomingMoney);
+            //catering.ConvertMoneyToDecimal(incomingMoney);
+            //while (!catering.ConvertMoneyToDecimal(incomingMoney))
+            //{
+            //    Console.WriteLine();
+            //    Console.WriteLine("Please enter a numeral (ex: 1, 15, 75.50, etc):");
+            //    incomingMoney = Console.ReadLine();
+            //    catering.ConvertMoneyToDecimal(incomingMoney);
+            //}
 
-            catering.IsPositive(decimalIncomingMoney);
-            while (!catering.IsPositive(decimalIncomingMoney))
-            {
-                Console.WriteLine();
-                Console.WriteLine("Please enter a positive number:");
-                decimalIncomingMoney = Convert.ToDecimal(Console.ReadLine());
-            }
+            //decimal decimalIncomingMoney = Convert.ToDecimal(incomingMoney);
 
-            catering.LessThan5000(decimalIncomingMoney);
-            while (!catering.LessThan5000(decimalIncomingMoney))
+            //catering.IsPositive(incomingMoney);
+            //while (!catering.IsPositive(incomingMoney))
+            //{
+            //    Console.WriteLine();
+            //    Console.WriteLine("Please enter a positive number:");
+            //    incomingMoney = Convert.ToDecimal(Console.ReadLine());
+            //}
+
+            catering.LessThan5000(incomingMoney);
+            while (!catering.LessThan5000(incomingMoney))
             {
                 Console.WriteLine();
                 Console.WriteLine("The maximum account balance allowed is $5000.");
                 Console.WriteLine("Your current balance is: $" + catering.accountBalance + ".");
-                decimalIncomingMoney = Convert.ToDecimal(Console.ReadLine());
+                incomingMoney = Convert.ToDecimal(Console.ReadLine());
             }
-            catering.accountBalance += decimalIncomingMoney;
-
+            catering.accountBalance += incomingMoney;
+            catering.amountDueBack += incomingMoney;
         }
     }
 }

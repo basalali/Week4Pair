@@ -9,8 +9,8 @@ namespace Capstone.Classes
 
         public decimal accountBalance { get; set; }
         public decimal amountDueBack { get; set; }
+        public decimal shoppingCartTotal { get; set; }
 
-        private CateringItem temp = new CateringItem();
         private List<CateringItem> items = new List<CateringItem>();
         private List<CateringItem> shoppingCart = new List<CateringItem>();
         //private string filePath = @"C:\Catering";
@@ -33,13 +33,8 @@ namespace Capstone.Classes
             {
                 if (item.IdentifierCode == identifierCode)
                 {
-                    temp.IdentifierCode = identifierCode;
-                    temp.Name = item.Name;
-                    temp.Quantity = item.Quantity - quantity;
-                    temp.Type = item.Type;
-                    temp.Price = item.Price;
-                    items.Remove(item);
-                    items.Add(temp);
+                    CateringItem temp = new CateringItem();
+                    item.Quantity -= quantity;
                 }
             }
         }
@@ -48,29 +43,22 @@ namespace Capstone.Classes
         {
             foreach(CateringItem item in items)
             {
+
                 if (item.IdentifierCode == identifierCode)
                 {
-                    temp.IdentifierCode = identifierCode;
-                    temp.Name = item.Name;
-                    temp.Quantity = quantity;
-                    temp.Type = item.Type;
-                    temp.Price = item.Price;
-                    shoppingCart.Add(temp);
+                    CateringItem product = new CateringItem();
+                    product.IdentifierCode = identifierCode;
+                    product.Name = item.Name;
+                    product.Quantity = quantity;
+                    product.Type = item.Type;
+                    product.Price = item.Price;
+                    shoppingCart.Add(product);
+
+                    shoppingCartTotal += (product.Quantity * product.Price);
+                    amountDueBack = accountBalance - shoppingCartTotal;
                 }
             }
         }
-
-        public decimal ShoppingCartTotal()
-        {
-            decimal shoppingCartTotal = 0;
-            foreach(CateringItem product in shoppingCart)
-            {
-                shoppingCartTotal += (temp.Quantity * temp.Price);
-            }
-            amountDueBack = accountBalance - shoppingCartTotal;
-            return shoppingCartTotal;
-        }
-
 
         public string DisplayShoppingCart()
         {
@@ -89,14 +77,6 @@ namespace Capstone.Classes
                 return "Read from file failed";
             }       
         }
-
-        //public string UpdateInventoryItems()
-        //{
-
-
-            //todo- updating inventory items from shoppingitemcart(list)
-            //clear out shopping cart
-        //}
 
         public string DisplaySelectionMenu()
         {
@@ -157,29 +137,29 @@ namespace Capstone.Classes
             return exists;
         }
 
-        public bool ConvertMoneyToDecimal(string incomingMoney)
-        {
-            bool converted = false;
-            try
-            {
-                decimal convertedIncomingMoney = Convert.ToDecimal(incomingMoney);
-                converted = true;
-            }
-            catch (FormatException)
-            {                
-            }                       
-            return converted;
-        }
+        //public bool ConvertMoneyToDecimal(string incomingMoney)
+        //{
+        //    bool converted = false;
+        //    try
+        //    {
+        //        decimal convertedIncomingMoney = Convert.ToDecimal(incomingMoney);
+        //        converted = true;
+        //    }
+        //    catch (FormatException)
+        //    {                
+        //    }                       
+        //    return converted;
+        //}
 
-        public bool IsPositive(decimal incomingMoney)
-        {
-            bool isPositive = true;
-            if (incomingMoney < 0)
-            {
-                isPositive = false;
-            }
-            return isPositive;
-        }
+        //public bool IsPositive(decimal incomingMoney)
+        //{
+        //    bool isPositive = true;
+        //    if (incomingMoney < 0)
+        //    {
+        //        isPositive = false;
+        //    }
+        //    return isPositive;
+        //}
 
         public bool LessThan5000(decimal incomingMoney)
         {
