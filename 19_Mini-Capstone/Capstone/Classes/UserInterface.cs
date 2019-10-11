@@ -10,13 +10,15 @@ namespace Capstone.Classes
         // All the "work" of the application should be done elsewhere
         // All instance of Console.ReadLine and Console.WriteLine should be in this class.
 
-        public decimal accountBalance { get; set; } 
+        public decimal accountBalance { get; set; }
+        
 
         static public Catering catering = new Catering();
 
-        CateringItem type = new CateringItem();
-        List<CateringItem> result = catering.GetCateringItems();
+       CateringItem type = new CateringItem();
+       List<CateringItem> result = catering.GetCateringItems();
 
+       int numberOfItems = 0;
 
         public void RunInterface()
         {
@@ -37,13 +39,14 @@ namespace Capstone.Classes
             {
                 switch (initialSelection)
                 {
-                    case "1":
-                        DisplaySelectionMenu();
+                    case "1":                    
+                        DisplaySelectionMenu();                       
                         Console.ReadLine();
                         break;
-                    case "2":
+                    case "2":                       
                         PrintOrderMenu();
                         OrderSelection();
+                        Console.ReadLine();
                         break;
                     default:
                         Console.WriteLine();
@@ -98,8 +101,9 @@ namespace Capstone.Classes
                         AddMoneySelection();
                         break;
                     case "2":
-                        //SelectProducts();
-                        ProductDoesntExist();
+                        Console.WriteLine("Please enter the product identifier code that you wish to purchase");
+                        string userInput = Console.ReadLine();
+                        catering.ProductExists(userInput);
 
                         break;
                     default:
@@ -326,19 +330,7 @@ namespace Capstone.Classes
 
         }
 
-        private void ProductDoesntExist()
-        {
-           
-            if (type.IdentifierCode )
-            {
-                    Console.WriteLine();
-                    Console.WriteLine("This product does not exist.");
-                
-            }        
-           
-            Console.WriteLine();
-            return;
-
+    
         }
 
         private void ProductSoldOut()
@@ -359,7 +351,7 @@ namespace Capstone.Classes
         private void InsufficientStock()
         {
            
-            if (type.Quantity == 0)
+            if (type.Quantity < numberOfItems)
             {
                 Console.WriteLine();
                 Console.WriteLine("There is insufficient stock.");

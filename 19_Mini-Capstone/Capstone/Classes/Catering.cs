@@ -25,7 +25,19 @@ namespace Capstone.Classes
 
         private List<CateringItem> shoppingCart = new List<CateringItem>();
 
+        public bool ProductExists(string identifierCode)
+        {
+            bool result = false;
+            foreach(CateringItem item in items)
+            {
+                if(item.IdentifierCode == identifierCode)
+                {
+                    result = true;
+                }
 
+            }
+            return result;
+        }
 
 
 

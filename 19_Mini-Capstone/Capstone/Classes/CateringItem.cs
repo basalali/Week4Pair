@@ -31,6 +31,7 @@ namespace Capstone.Classes
         {
         
             return String.Format("{0, -5} {1, -30} {2, -15} {3, -15} {4, -15}", IdentifierCode, Name, Price, Type, Quantity);
+            
         }
     }
 }
