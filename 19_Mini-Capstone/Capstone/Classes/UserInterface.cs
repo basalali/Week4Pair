@@ -135,7 +135,7 @@ namespace Capstone.Classes
             Console.WriteLine(String.Format("{0, -5} {1, -30} {2, -15} {3, -15} {4, -15}", "ID", "Name", "Price", "Type", "Quantity"));
             Console.WriteLine(catering.DisplayShoppingCart());
             Console.WriteLine("Your current total is: $" + catering.ShoppingCartTotal);
-            Console.WriteLine("Your account balance is: $" + catering.AccountBalance);
+            Console.WriteLine("Your account balance is: $" + (catering.AccountBalance - catering.ShoppingCartTotal)); // subtraced one from the other, acount balance was not chaning
             Console.WriteLine();
             Console.WriteLine("1 - Display catering items");
             Console.WriteLine("2 - Add more items to your shopping cart");
