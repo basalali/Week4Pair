@@ -46,6 +46,9 @@ namespace Capstone.Classes
             }
             return shoppingItems;
         }
+
+
+
         /*
          All purchases must be audited to track orders and amounts in the catering system
         Each purchase should generate a line in a file called ​Log.txt
