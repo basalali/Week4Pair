@@ -34,6 +34,8 @@ namespace Capstone.Classes
                         Console.WriteLine();
                         Console.WriteLine(String.Format("{0, -5} {1, -30} {2, -15} {3, -15} {4, -15}", "ID", "Name", "Price", "Type", "Quantity"));
                         Console.Write(catering.DisplaySelectionMenu());
+                        PrintInitialMenu();
+                        InitialSelection();
                         break;
                     case "2":
                         PrintOrderMenu();
@@ -45,9 +47,8 @@ namespace Capstone.Classes
                         Console.WriteLine("Please make a valid selection.");
                         break;
                 }
-                PrintInitialMenu();
-                initialSelection = Console.ReadLine();
             }
+            Environment.Exit(0);
         }
         private void PrintInitialMenu()
         {
@@ -78,6 +79,7 @@ namespace Capstone.Classes
                         Console.WriteLine();
                         Console.WriteLine("Please enter the product identifier code that you wish to purchase");
                         string userInputID = Console.ReadLine();
+                        userInputID = userInputID.ToUpper();
                         Console.WriteLine();
                         Console.WriteLine("Please enter the number of items you wish to purchase.");
                         int userInputAmount = Convert.ToInt32(Console.ReadLine());
@@ -144,6 +146,7 @@ namespace Capstone.Classes
                         Console.WriteLine();
                         Console.WriteLine("Please enter the product identifier code that you wish to purchase");
                         string userInputID = Console.ReadLine();
+                        userInputID = userInputID.ToUpper();
                         Console.WriteLine();
                         Console.WriteLine("Please enter the number of items you wish to purchase.");
                         int userInputAmount = Convert.ToInt32(Console.ReadLine());
@@ -209,6 +212,7 @@ namespace Capstone.Classes
                     Console.WriteLine();
                     Console.WriteLine("Product does not exist, please make another selection.");
                     userInputID = Console.ReadLine();
+                    userInputID = userInputID.ToUpper();
                     Console.WriteLine();
                     Console.WriteLine("Please enter the number of items you wish to purchase.");
                     int intuserInputAmount = Convert.ToInt32(Console.ReadLine());
@@ -218,6 +222,7 @@ namespace Capstone.Classes
                     Console.WriteLine();
                     Console.WriteLine("Product is sold out, please make another selection.");
                     userInputID = Console.ReadLine();
+                    userInputID = userInputID.ToUpper();
                     Console.WriteLine();
                     Console.WriteLine("Please enter the number of items you wish to purchase.");
                     userInputAmount = Convert.ToInt32(Console.ReadLine());
@@ -225,7 +230,7 @@ namespace Capstone.Classes
                 else if (!catering.SufficientStock(userInputID, userInputAmount))
                 {
                     Console.WriteLine();
-                    Console.WriteLine("Insufficient stock, please make another selection.");
+                    Console.WriteLine("Insufficient stock, enter a different amount.");
                     userInputAmount = Convert.ToInt32(Console.ReadLine());
                 }
             }
