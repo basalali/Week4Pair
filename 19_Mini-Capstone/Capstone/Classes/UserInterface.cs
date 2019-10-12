@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.IO;
 namespace Capstone.Classes
 {
     public class UserInterface
     {
         Catering catering = new Catering();
+        FileAccess fileAccess = new FileAccess();
+       
 
 
         public void RunInterface()
@@ -25,6 +27,7 @@ namespace Capstone.Classes
         }
         public void InitialSelection()
         {
+           
             string initialSelection = Console.ReadLine();
             while (initialSelection != "3")
             {
@@ -37,7 +40,7 @@ namespace Capstone.Classes
                         break;
                     case "2":
                         PrintOrderMenu();
-                        OrderSelection();
+                        OrderSelection();                       
                         Console.ReadLine();
                         break;
                     default:
@@ -61,6 +64,9 @@ namespace Capstone.Classes
 
         private void OrderSelection()
         {
+            string directory = @"C:\Catering";
+            string fileName = "log.txt";
+            string fullPath = Path.Combine(directory, fileName);
             string orderSelection = Console.ReadLine();
             while (orderSelection != "3")
             {
@@ -69,10 +75,18 @@ namespace Capstone.Classes
                     case "1":
                         Console.WriteLine();
                         Console.WriteLine("Please insert money.");
-                        string incomingMoney = Console.ReadLine();
+                        decimal incomingMoney = (Convert.ToDecimal(Console.ReadLine());
                         AddMoney(incomingMoney);
                         PrintAddMoneyMenu();
                         AddMoneySelection();
+                        using(StreamWriter sw = new StreamWriter(fullPath, true))
+{
+                            if (incomingMoney > 0)
+                            {
+                                sw.WriteLine($"{DateTime.UtcNow} Add Money {incomingMoney} {catering.accountBalance}");
+                            }
+                        }
+                        Console.WriteLine("");
                         break;
                     case "2":
                         Console.WriteLine();
@@ -169,8 +183,9 @@ namespace Capstone.Classes
                         Console.WriteLine("Please insert money.");
                         string incomingMoney = Console.ReadLine();
                         AddMoney(incomingMoney);
+                        //fileAccess.AddMoneyTracker(incomingMoney, catering.accountBalance); // writing ADDMoney method into log file 
                         PrintAddMoneyMenu();
-                        AddMoneySelection();
+                        AddMoneySelection();                      
                         break;
                     default:
                         Console.WriteLine();
@@ -253,5 +268,9 @@ namespace Capstone.Classes
             catering.accountBalance += incomingMoney;
             catering.amountDueBack += incomingMoney;
         }
+    
+
+
+
     }
 }
