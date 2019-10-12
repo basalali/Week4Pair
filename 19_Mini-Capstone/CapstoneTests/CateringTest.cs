@@ -10,22 +10,6 @@ namespace CapstoneTests
     public class CateringTest
     {
         [TestMethod]
-        public void ConvertMoneyToDecimalTest()
-        {
-            Catering testClass = new Catering();
-
-            bool result = testClass.ConvertMoneyToDecimal("8");
-            Assert.AreEqual(true, result);
-
-            result = testClass.ConvertMoneyToDecimal("8.8");
-            Assert.AreEqual(true, result);
-
-            result = testClass.ConvertMoneyToDecimal("eight");
-            Assert.AreEqual(false, result);
-
-        }
-
-        [TestMethod]
         public void IsPositiveTest()
         {
             Catering testClass = new Catering();
@@ -58,9 +42,9 @@ namespace CapstoneTests
         public void ChangeReturnedTest()
         {
             Catering testClass = new Catering();
-           decimal balance = testClass.accountBalance = 500;
-           decimal change = testClass.amountDueBack = 250;
-           //decimal result = (testClass.ChangeReturned();
+            decimal balance = testClass.AccountBalance = 500;
+            decimal change = testClass.AmountDueBack = 250;
+            //decimal result = (testClass.ChangeReturned();
             //string result = testClass.ChangeReturned();
             //Assert.IsTrue(result.Contains("));
         }

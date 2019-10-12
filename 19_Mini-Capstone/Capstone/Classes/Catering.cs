@@ -7,15 +7,14 @@ namespace Capstone.Classes
     public class Catering
     {
 
-        public decimal accountBalance { get; set; }
-        public decimal amountDueBack { get; set; }
-        public decimal shoppingCartTotal { get; set; }
+        public decimal AccountBalance { get; set; }
+        public decimal AmountDueBack { get; set; }
+        public decimal ShoppingCartTotal { get; set; }
 
         private List<CateringItem> items = new List<CateringItem>();
         private List<CateringItem> shoppingCart = new List<CateringItem>();
-        //private string filePath = @"C:\Catering";
-
-        
+        private Dictionary<decimal, int> changeToReturn = new Dictionary<decimal, int>();
+      
         public Catering()
         {
             FileAccess fileaccess = new FileAccess();
@@ -33,7 +32,6 @@ namespace Capstone.Classes
             {
                 if (item.IdentifierCode == identifierCode)
                 {
-                    CateringItem temp = new CateringItem();
                     item.Quantity -= quantity;
                 }
             }
@@ -43,7 +41,6 @@ namespace Capstone.Classes
         {
             foreach(CateringItem item in items)
             {
-
                 if (item.IdentifierCode == identifierCode)
                 {
                     CateringItem product = new CateringItem();
@@ -54,8 +51,7 @@ namespace Capstone.Classes
                     product.Price = item.Price;
                     shoppingCart.Add(product);
 
-                    shoppingCartTotal += (product.Quantity * product.Price);
-                    amountDueBack = accountBalance - shoppingCartTotal;
+                    ShoppingCartTotal += (product.Quantity * product.Price);                   
                 }
             }
         }
@@ -137,169 +133,61 @@ namespace Capstone.Classes
             return exists;
         }
 
-        //public bool ConvertMoneyToDecimal(string incomingMoney)
-        //{
-        //    bool converted = false;
-        //    try
-        //    {
-        //        decimal convertedIncomingMoney = Convert.ToDecimal(incomingMoney);
-        //        converted = true;
-        //    }
-        //    catch (FormatException)
-        //    {                
-        //    }                       
-        //    return converted;
-        //}
-
-        //public bool IsPositive(decimal incomingMoney)
-        //{
-        //    bool isPositive = true;
-        //    if (incomingMoney < 0)
-        //    {
-        //        isPositive = false;
-        //    }
-        //    return isPositive;
-        //}
+        public bool IsPositive(decimal incomingMoney)
+        {
+            bool isPositive = true;
+            if (incomingMoney < 0)
+            {
+                isPositive = false;
+            }
+            return isPositive;
+        }
 
         public bool LessThan5000(decimal incomingMoney)
         {
             bool lessThan5000 = true;
-            if (incomingMoney + accountBalance > 5000)
+            if (incomingMoney + AccountBalance > 5000)
             {
                 lessThan5000 = false;
             }
             return lessThan5000;
         }
 
-        public string ChangeReturned()
+        public void ChangeToReturn()
         {
-            int numberOfHundreds = 0;
-            string hundreds = "";
-            while (amountDueBack >= 100M)
-            {
-                numberOfHundreds++;
-                amountDueBack -= 100M;
-            }
-            if (numberOfHundreds > 0)
-            {
-                hundreds = (numberOfHundreds + " $100 bill(s), ");
-            }
+            List<decimal> currency = new List<decimal> { 100, 50, 20, 10, 5, 1, .25M, .1M, .05M, .01M };
 
-            int numberOfFifties = 0;
-            string fifties = "";
-            while (amountDueBack >= 50M)
+            foreach(decimal billOrCoin in currency)
             {
-                numberOfFifties++;
-                amountDueBack -= 50M;
+                int numberOfBillOrCoin = 0;
+                while (AmountDueBack > billOrCoin)
+                {
+                    numberOfBillOrCoin++;
+                    AmountDueBack -= billOrCoin;
+                }
+                if (numberOfBillOrCoin > 0)
+                {
+                    changeToReturn.Add(billOrCoin, numberOfBillOrCoin);
+                }
             }
-            if (numberOfFifties > 0)
-            {
-                fifties = (numberOfFifties + " $50 bill, ");
-            }
-
-            int numberOfTwenties = 0;
-            string twenties = "";
-            while (amountDueBack >= 20M)
-            {
-                numberOfTwenties++;
-                amountDueBack -= 20M;
-            }
-            if (numberOfTwenties > 0)
-            {
-                twenties = (numberOfTwenties + " $20 bill(s), ");
-            }
-
-            int numberOfTens = 0;
-            string tens = "";
-            while (amountDueBack >= 10M)
-            {
-                numberOfTens++;
-                amountDueBack -= 10M;
-            }
-            if (numberOfTens > 0)
-            {
-                tens = (numberOfTens + " $10 bill, ");
-            }
-
-            int numberOfFives = 0;
-            string fives = "";
-            while (amountDueBack >= 5M)
-            {
-                numberOfFives++;
-                amountDueBack -= 5M;
-            }
-            if (numberOfFives > 0)
-            {
-                fives = (numberOfFives + " $5 bill, ");
-            }
-
-            int numberOfOnes = 0;
-            string ones = "";
-            while (amountDueBack >= 1M)
-            {
-                numberOfOnes++;
-                amountDueBack -= 1M;
-            }
-            if (numberOfOnes > 0)
-            {
-                ones = (numberOfOnes + " $1 bill(s), ");
-            }
-
-            int numberOfQuarters = 0;
-            string quarters = "";
-            while (amountDueBack >= .25M)
-            {
-                numberOfQuarters++;
-                amountDueBack -= .25M;
-            }
-            if (numberOfQuarters > 0)
-            {
-                quarters = (numberOfQuarters + " quarter(s), ");
-            }
-
-            int numberOfDimes = 0;
-            string dimes = "";
-            while (amountDueBack >= .1M)
-            {
-                numberOfDimes++;
-                amountDueBack -= .1M;
-            }
-            if (numberOfDimes > 0)
-            {
-                dimes = (numberOfDimes + " dime(s), ");
-            }
-
-            int numberOfNickels = 0;
-            string nickels = "";
-            while (amountDueBack >= .05M)
-            {
-                numberOfNickels++;
-                amountDueBack -= .05M;
-            }
-            if (numberOfNickels > 0)
-            {
-                nickels = (numberOfNickels + " nickel, ");
-            }
-
-            int numberOfPennies = 0;
-            string pennies = "";
-            while (amountDueBack >= .01M)
-            {
-                numberOfPennies++;
-                amountDueBack -= .01M;
-            }
-            if (numberOfPennies > 0)
-            {
-                pennies = (numberOfPennies + " penny(s) ");
-            }
-
-            accountBalance = amountDueBack;
-            return (hundreds + fifties + twenties + tens + fives + ones + quarters + dimes + nickels + pennies);
         }
 
-
-        // need to set accountBalance to 0 at beginning, reset after customer orders
-
+        public string ChangeToReturnText()
+        {
+            string result = "";
+            foreach (KeyValuePair<decimal, int> entry in changeToReturn)
+            {
+                result = result + entry.Value + " x $" + entry.Key + Environment.NewLine;
+            }
+            if (result == "")
+            {
+                return "Your account balance was equal to the amount of your purchase. You are due no change.";
+            }
+            else
+            {
+                return "Your change is: " + Environment.NewLine + result;
+            }
+        }
     }
 }
 
