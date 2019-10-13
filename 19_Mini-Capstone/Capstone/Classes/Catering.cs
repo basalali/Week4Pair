@@ -12,7 +12,7 @@ namespace Capstone.Classes
         public decimal ShoppingCartTotal { get; set; }
 
         private List<CateringItem> items = new List<CateringItem>();
-        private List<CateringItem> shoppingCart = new List<CateringItem>();
+        public List<CateringItem> shoppingCart = new List<CateringItem>();
         private Dictionary<decimal, int> changeToReturn = new Dictionary<decimal, int>();
       
         public Catering()
@@ -123,8 +123,7 @@ namespace Capstone.Classes
             bool exists = false;
        
             foreach (CateringItem item in items)
-            {
-               
+            {              
                 if (item.IdentifierCode == identifierCode && item.Quantity >= desiredAmount)
                 {
                     exists = true;
@@ -187,6 +186,16 @@ namespace Capstone.Classes
             {
                 return "Your change is: " + Environment.NewLine + result;
             }
+        }
+
+        public List<CateringItem> GetShoppingCart()
+        {
+            return shoppingCart;
+        }
+
+        public Dictionary<decimal, int> GetChangeToReturn()
+        {
+            return changeToReturn;
         }
     }
 }
