@@ -123,8 +123,7 @@ namespace Capstone.Classes
             bool exists = false;
        
             foreach (CateringItem item in items)
-            {
-               
+            {              
                 if (item.IdentifierCode == identifierCode && item.Quantity >= desiredAmount)
                 {
                     exists = true;
@@ -160,7 +159,7 @@ namespace Capstone.Classes
             foreach(decimal billOrCoin in currency)
             {
                 int numberOfBillOrCoin = 0;
-                while (AmountDueBack > billOrCoin)
+                while (AmountDueBack >= billOrCoin)
                 {
                     numberOfBillOrCoin++;
                     AmountDueBack -= billOrCoin;
@@ -187,6 +186,16 @@ namespace Capstone.Classes
             {
                 return "Your change is: " + Environment.NewLine + result;
             }
+        }
+
+        public List<CateringItem> GetShoppingCart()
+        {
+            return shoppingCart;
+        }
+
+        public Dictionary<decimal, int> GetChangeToReturn()
+        {
+            return changeToReturn;
         }
     }
 }

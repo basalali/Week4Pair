@@ -63,11 +63,13 @@ namespace CapstoneTests
         }
 
         [TestMethod]
-        public void ChangeReturnedTest()
+        public void ChangeToReturnTest()
         {
             Catering testClass = new Catering();
             decimal balance = testClass.AccountBalance = 500;
             decimal change = testClass.AmountDueBack = 250;
+
+            
             //decimal result = (testClass.ChangeReturned();
             //string result = testClass.ChangeReturned();
             //Assert.IsTrue(result.Contains("));
