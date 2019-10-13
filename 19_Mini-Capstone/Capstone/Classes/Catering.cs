@@ -6,14 +6,13 @@ namespace Capstone.Classes
 {
     public class Catering
     {
-
         public decimal AccountBalance { get; set; }
-        public decimal AmountDueBack { get; set; }
+        //public decimal AmountDueBack { get; set; }
         public decimal ShoppingCartTotal { get; set; }
 
         private List<CateringItem> items = new List<CateringItem>();
         private List<CateringItem> shoppingCart = new List<CateringItem>();
-        private Dictionary<decimal, int> changeToReturn = new Dictionary<decimal, int>();
+        public Dictionary<decimal, int> changeToReturn = new Dictionary<decimal, int>();
       
         public Catering()
         {
@@ -51,7 +50,8 @@ namespace Capstone.Classes
                     product.Price = item.Price;
                     shoppingCart.Add(product);
 
-                    ShoppingCartTotal += (product.Quantity * product.Price);                   
+                    ShoppingCartTotal += (product.Quantity * product.Price);
+                    AccountBalance -= (product.Quantity * product.Price);
                 }
             }
         }
@@ -159,10 +159,10 @@ namespace Capstone.Classes
             foreach(decimal billOrCoin in currency)
             {
                 int numberOfBillOrCoin = 0;
-                while (AmountDueBack >= billOrCoin)
+                while (AccountBalance >= billOrCoin)
                 {
                     numberOfBillOrCoin++;
-                    AmountDueBack -= billOrCoin;
+                    AccountBalance -= billOrCoin;
                 }
                 if (numberOfBillOrCoin > 0)
                 {

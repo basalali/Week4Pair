@@ -84,9 +84,8 @@ namespace Capstone.Classes
                                 sw.WriteLine($"{DateTime.UtcNow} Add Money: {Convert.ToDecimal(incomingMoney)} {catering.AccountBalance}");
                             }
                         }
-                        AddMoneySelection();
-                      
-                            break;
+                        AddMoneySelection();                   
+                        break;
                     case "2":
                         Console.WriteLine();
                         Console.WriteLine("Please enter the product identifier code that you wish to purchase");
@@ -135,7 +134,7 @@ namespace Capstone.Classes
             Console.WriteLine(String.Format("{0, -5} {1, -30} {2, -15} {3, -15} {4, -15}", "ID", "Name", "Price", "Type", "Quantity"));
             Console.WriteLine(catering.DisplayShoppingCart());
             Console.WriteLine("Your current total is: $" + catering.ShoppingCartTotal);
-            Console.WriteLine("Your account balance is: $" + (catering.AccountBalance - catering.ShoppingCartTotal)); // subtraced one from the other, acount balance was not chaning
+            Console.WriteLine("Your account balance is: $" + (catering.AccountBalance));
             Console.WriteLine();
             Console.WriteLine("1 - Display catering items");
             Console.WriteLine("2 - Add more items to your shopping cart");
@@ -193,7 +192,6 @@ namespace Capstone.Classes
                         AddMoney(incomingMoney);
                         PrintAddMoneyMenu();
                         AddMoneySelection();
-
                         break;
                     default:
                         Console.WriteLine();
@@ -280,9 +278,8 @@ namespace Capstone.Classes
         }
         private void CalculateChangeToReturn()
         {
-            if (catering.AccountBalance - catering.ShoppingCartTotal >= 0)
+            if (catering.AccountBalance >= 0)
             {
-                catering.AmountDueBack = catering.AccountBalance - catering.ShoppingCartTotal;
                 catering.ChangeToReturn();
                 Console.WriteLine(catering.ChangeToReturnText());
             }
@@ -294,7 +291,6 @@ namespace Capstone.Classes
                 PrintOrderMenu();
                 OrderSelection();
             }
-
         }
     }
 }

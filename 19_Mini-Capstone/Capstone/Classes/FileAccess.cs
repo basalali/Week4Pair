@@ -35,14 +35,15 @@ namespace Capstone.Classes
                         shoppingItems.Add(items);
                     }
             }
-
-            catch(IOException e)
+            catch (IOException e)
             {
                 shoppingItems = new List<CateringItem>();
                 Console.WriteLine(e.Message);
             }
             return shoppingItems;
         }
+    }
+}
 
         //public List<CateringItem> WriteToLogShoppingCart()
         //{
@@ -68,9 +69,6 @@ namespace Capstone.Classes
         //    return shoppingItems;
         //}
 
-    }
-
-
         /*
          All purchases must be audited to track orders and amounts in the catering system
         Each purchase should generate a line in a file called ​Log.txt
@@ -86,7 +84,6 @@ namespace Capstone.Classes
             01/01/2019 12:01:25 PM 9 Red Wine B2 $29.25 $608.25
             01/01/2019 12:01:35 PM GIVE CHANGE: $608.25 $0.00 (change given back current account balance)
         */
-
 
         //public void AddMoneyTracker(string amountAdded, decimal cateringBalance)
         //{
@@ -148,9 +145,5 @@ namespace Capstone.Classes
         //        Console.WriteLine(ex.Message);
         //    }
         //}
-
-
-    
-}
 
 
