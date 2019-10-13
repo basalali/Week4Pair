@@ -86,8 +86,9 @@ namespace Capstone.Classes
 
 
 
-        public string Quantity_ID_NAME_PRODUCT_CODETracker(int quantity, string name, string ID)
+        public string Quantity_ID_NAME_PRODUCT_CODETracker(int quantity, string ID)
         {
+            
             //(number of items ordered, name of item, ID, total cost, current balance)
             string result = "";
             Catering catering = new Catering();
@@ -99,7 +100,7 @@ namespace Capstone.Classes
             {
                 using (StreamWriter sw = new StreamWriter(fullPath, true))
                 {
-                    result = ($"{DateTime.UtcNow} {quantity} {name} {ID} {catering.AccountBalance}");
+                    result = ($"{DateTime.UtcNow} {quantity} {ID} {catering.AccountBalance}");
                     sw.WriteLine(result);
                 }
             }
@@ -111,25 +112,29 @@ namespace Capstone.Classes
             return result;
         }
 
-        //public void GiveChangeTracker(string input) // changetoreturn() where it deletes from account balance
-        //{
-        //    string directory = @"C:\Catering";
-        //    string fileName = "log.txt";
-        //    string fullPath = Path.Combine(directory, fileName);
+        public string GiveChangeTracker() // changetoreturn() where it deletes from account balance
+        {
+            // 01/01/2019 12:01:35 PM GIVE CHANGE: $608.25 $0.00 (change given back current account balance)
+            string result = "";
+            Catering catering = new Catering();
+            string directory = @"C:\Catering";
+            string fileName = "log.txt";
+            string fullPath = Path.Combine(directory, fileName);
 
-        //    try
-        //    {
-        //        using (StreamWriter sw = new StreamWriter(fullPath, true))
-        //        {
-
-        //            sw.WriteLine();
-        //        }
-        //    }
-        //    catch (IOException ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-        //}
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(fullPath, true))
+                {
+                    result = ($"{DateTime.UtcNow} GIVE CHANGE: {catering.AmountDueBack} {catering.AccountBalance}");
+                    sw.WriteLine(result);
+                }
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return result;
+        }
     }
 
 

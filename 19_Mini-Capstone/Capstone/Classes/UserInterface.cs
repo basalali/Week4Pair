@@ -103,7 +103,8 @@ namespace Capstone.Classes
                 OrderSelection();
             }
             Console.WriteLine();
-            CalculateChangeToReturn();
+            CalculateChangeToReturn();            
+            fileAccess.GiveChangeTracker();// records change given and current account balance.
             Console.WriteLine("Press enter to continue to a new transaction.");
             Console.ReadLine();
 
@@ -138,7 +139,7 @@ namespace Capstone.Classes
 
         private void ShoppingCartMenuSelection()
         {
-            CateringItem CI = new CateringItem(); // used to get access to name property.
+            
             string shoppingCartSelection = Console.ReadLine();
             while (shoppingCartSelection != "3")
             {
@@ -157,11 +158,12 @@ namespace Capstone.Classes
                         Console.WriteLine();
                         Console.WriteLine("Please enter the number of items you wish to purchase.");
                         int userInputAmount = Convert.ToInt32(Console.ReadLine());
-                        fileAccess.Quantity_ID_NAME_PRODUCT_CODETracker(userInputAmount, CI.Name, userInputID); // reciept tracking method for items selected
+                        fileAccess.Quantity_ID_NAME_PRODUCT_CODETracker(userInputAmount, userInputID); // reciept tracking method for items selected
                         ShoppingCartUI(userInputID, userInputAmount);
                         catering.RemoveFromItem(userInputID, userInputAmount);
                         PrintShoppingCartMenu();
                         ShoppingCartMenuSelection();
+                        
                         break;
                     default:
                         Console.WriteLine();
@@ -283,6 +285,7 @@ namespace Capstone.Classes
                 catering.AmountDueBack = catering.AccountBalance - catering.ShoppingCartTotal;
                 catering.ChangeToReturn();
                 Console.WriteLine(catering.ChangeToReturnText());
+
             }
             else
             {
