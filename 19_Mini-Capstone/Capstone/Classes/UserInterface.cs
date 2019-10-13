@@ -76,14 +76,8 @@ namespace Capstone.Classes
                         Console.WriteLine("Please insert money.");
                         string incomingMoney = Console.ReadLine();
                         AddMoney(incomingMoney);
-                        PrintAddMoneyMenu();
-                        using (StreamWriter sw = new StreamWriter(fullPath, true))
-                        {
-                            if (Convert.ToDecimal(incomingMoney) > 0)
-                            {
-                                sw.WriteLine($"{DateTime.UtcNow} Add Money: {Convert.ToDecimal(incomingMoney)} {catering.AccountBalance}");
-                            }
-                        }
+                        PrintAddMoneyMenu();                       
+                        fileAccess.AddMoneyTracker(incomingMoney); // records everytime someone inserts money! method is in fileaccess.
                         AddMoneySelection();
                       
                             break;
@@ -135,7 +129,7 @@ namespace Capstone.Classes
             Console.WriteLine(String.Format("{0, -5} {1, -30} {2, -15} {3, -15} {4, -15}", "ID", "Name", "Price", "Type", "Quantity"));
             Console.WriteLine(catering.DisplayShoppingCart());
             Console.WriteLine("Your current total is: $" + catering.ShoppingCartTotal);
-            Console.WriteLine("Your account balance is: $" + (catering.AccountBalance - catering.ShoppingCartTotal)); // subtraced one from the other, acount balance was not chaning
+            Console.WriteLine("Your account balance is: $" + (catering.AccountBalance));
             Console.WriteLine();
             Console.WriteLine("1 - Display catering items");
             Console.WriteLine("2 - Add more items to your shopping cart");
@@ -144,6 +138,7 @@ namespace Capstone.Classes
 
         private void ShoppingCartMenuSelection()
         {
+            CateringItem CI = new CateringItem(); // used to get access to name property.
             string shoppingCartSelection = Console.ReadLine();
             while (shoppingCartSelection != "3")
             {
@@ -162,10 +157,12 @@ namespace Capstone.Classes
                         Console.WriteLine();
                         Console.WriteLine("Please enter the number of items you wish to purchase.");
                         int userInputAmount = Convert.ToInt32(Console.ReadLine());
+                        fileAccess.Quantity_ID_NAME_PRODUCT_CODETracker(userInputAmount, CI.Name, userInputID); // reciept tracking method for items selected
                         ShoppingCartUI(userInputID, userInputAmount);
                         catering.RemoveFromItem(userInputID, userInputAmount);
                         PrintShoppingCartMenu();
                         ShoppingCartMenuSelection();
+                        //fileAccess.Quantity_ID_NAME_PRODUCT_CODETracker(userInputAmount, CI.Name, userInputID); // reciept tracking method for items selected
                         break;
                     default:
                         Console.WriteLine();
@@ -229,6 +226,7 @@ namespace Capstone.Classes
                     Console.WriteLine();
                     Console.WriteLine("Please enter the number of items you wish to purchase.");
                     int intuserInputAmount = Convert.ToInt32(Console.ReadLine());
+                  
                 }
                 else if (!catering.ProductAvailable(userInputID, userInputAmount))
                 {
@@ -250,6 +248,7 @@ namespace Capstone.Classes
             if (userInputAmount > 0)
             {
                 catering.AddToShoppingCart(userInputID, userInputAmount);
+
             }
         }
 
@@ -278,7 +277,7 @@ namespace Capstone.Classes
             }
             catering.AccountBalance += incomingMoney;
         }
-        private void CalculateChangeToReturn()
+      private void CalculateChangeToReturn()
         {
             if (catering.AccountBalance - catering.ShoppingCartTotal >= 0)
             {

@@ -43,114 +43,100 @@ namespace Capstone.Classes
             }
             return shoppingItems;
         }
+        /*
+     All purchases must be audited to track orders and amounts in the catering system
+    Each purchase should generate a line in a file called ​Log.txt
+    The audit entry should include the date, time, action taken, and new customer balance
+    Actions Taken may be:
+    ADD MONEY
+    GIVE CHANGE
+    NUMBER_ORDERED PRODUCT_NAME PRODUCT_CODE
+    The audit entries should be in the format:
+        01/01/2019 12:00:00 PM ADD MONEY: $500.00 $500.00 (amount addded, current balance)
+        01/01/2019 12:00:15 PM ADD MONEY: $250.00 $750.00 ''      ''
+        01/01/2019 12:00:20 PM 15 Chicken E4 $112.50 $637.50  (number of items ordered, name of item, ID, total cost, current balance)
+        01/01/2019 12:01:25 PM 9 Red Wine B2 $29.25 $608.25
+        01/01/2019 12:01:35 PM GIVE CHANGE: $608.25 $0.00 (change given back current account balance)
+    */
 
-        //public List<CateringItem> WriteToLogShoppingCart()
+
+        public string AddMoneyTracker(string message)
+        {
+            string result = "";
+            Catering catering = new Catering();
+            string directory = @"C:\Catering";
+            string fileName = "log.txt";
+            string fullPath = Path.Combine(directory, fileName);
+
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(fullPath, true))
+                {
+
+                     result = ($"{DateTime.UtcNow} Add Money: {message} {catering.AccountBalance}");
+                     sw.WriteLine(result);
+                }
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return result;
+        }
+
+
+
+        public string Quantity_ID_NAME_PRODUCT_CODETracker(int quantity, string name, string ID)
+        {
+            //(number of items ordered, name of item, ID, total cost, current balance)
+            string result = "";
+            Catering catering = new Catering();
+            string directory = @"C:\Catering";
+            string fileName = "log.txt";
+            string fullPath = Path.Combine(directory, fileName);
+
+            try
+            {
+                using (StreamWriter sw = new StreamWriter(fullPath, true))
+                {
+                    result = ($"{DateTime.UtcNow} {quantity} {name} {ID} {catering.AccountBalance}");
+                    sw.WriteLine(result);
+                }
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return result;
+        }
+
+        //public void GiveChangeTracker(string input) // changetoreturn() where it deletes from account balance
         //{
         //    string directory = @"C:\Catering";
-        //    string fileName = "log-cateringsystem.csv";
+        //    string fileName = "log.txt";
         //    string fullPath = Path.Combine(directory, fileName);
-
-        //    List<CateringItem> getShoppingCart = catering.shoppingCart<CateringItem>();
 
         //    try
         //    {
-        //        using (StreamWriter sw = new StreamWriter(fullPath))
+        //        using (StreamWriter sw = new StreamWriter(fullPath, true))
         //        {
-        //            for (int i = 0; i< )
+
+        //            sw.WriteLine();
         //        }
-
         //    }
-        //    catch (IOException e)
+        //    catch (IOException ex)
         //    {
-        //        shoppingItems = new List<CateringItem>();
-        //        Console.WriteLine(e.Message);
+        //        Console.WriteLine(ex.Message);
         //    }
-        //    return shoppingItems;
         //}
-
     }
 
 
-        /*
-         All purchases must be audited to track orders and amounts in the catering system
-        Each purchase should generate a line in a file called ​Log.txt
-        The audit entry should include the date, time, action taken, and new customer balance
-        Actions Taken may be:
-        ADD MONEY
-        GIVE CHANGE
-        NUMBER_ORDERED PRODUCT_NAME PRODUCT_CODE
-        The audit entries should be in the format:
-        	01/01/2019 12:00:00 PM ADD MONEY: $500.00 $500.00 (amount addded, current balance)
-            01/01/2019 12:00:15 PM ADD MONEY: $250.00 $750.00 ''      ''
-            01/01/2019 12:00:20 PM 15 Chicken E4 $112.50 $637.50  (number of items ordered, name of item, ID, total cost, current balance)
-            01/01/2019 12:01:25 PM 9 Red Wine B2 $29.25 $608.25
-            01/01/2019 12:01:35 PM GIVE CHANGE: $608.25 $0.00 (change given back current account balance)
-        */
 
 
-        //public void AddMoneyTracker()
-        //{
-        //    Catering catering = new Catering();
-        //    string directory = @"C:\Catering";
-        //    string fileName = "log.txt";
-        //    string fullPath = Path.Combine(directory, fileName);
-
-        //    try
-        //    {
-        //        using (StreamWriter sw = new StreamWriter(fullPath, true))
-        //        {
-
-        //            sw.WriteLine(DateTime.Now + "ADD MONEY: " + amountAdded + catering.AccountBalance);
-        //        }
-        //    }
-        //    catch (IOException ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-        //}
-
-        //public void GiveChangeTracker(string input)
-        //{
-        //    string directory = @"C:\Catering";
-        //    string fileName = "log.txt";
-        //    string fullPath = Path.Combine(directory, fileName);
-
-        //    try
-        //    {
-        //        using (StreamWriter sw = new StreamWriter(fullPath, true))
-        //        {
-
-        //            sw.WriteLine();
-        //        }
-        //    }
-        //    catch (IOException ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-        //}
-
-        //public void NUMBER_ORDEREDPRODUCT_NAME_PRODUCT_CODETracker()
-        //{
-        //    string directory = @"C:\Catering";
-        //    string fileName = "log.txt";
-        //    string fullPath = Path.Combine(directory, fileName);
-
-        //    try
-        //    {
-        //        using (StreamWriter sw = new StreamWriter(fullPath, true))
-        //        {
-
-        //            sw.WriteLine();
-        //        }
-        //    }
-        //    catch (IOException ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-        //}
 
 
-    
 }
 
 
