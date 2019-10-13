@@ -148,6 +148,7 @@ namespace CapstoneTests
             expectedAnswer.Add(.01M, 2);
             CollectionAssert.AreEquivalent(expectedAnswer, result);
         }
+
     }
 
 }

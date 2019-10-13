@@ -76,7 +76,6 @@ namespace Capstone.Classes
                         Console.WriteLine("Please insert money.");
                         string incomingMoney = Console.ReadLine();
                         AddMoney(incomingMoney);
-
                         PrintAddMoneyMenu();                       
                         fileAccess.AddMoneyTracker(incomingMoney); // records everytime someone inserts money! method is in fileaccess.
                         AddMoneySelection();                    
