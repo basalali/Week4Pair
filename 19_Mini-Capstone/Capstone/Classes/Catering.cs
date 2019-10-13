@@ -12,7 +12,7 @@ namespace Capstone.Classes
         public decimal ShoppingCartTotal { get; set; }
 
         private List<CateringItem> items = new List<CateringItem>();
-        public List<CateringItem> shoppingCart = new List<CateringItem>();
+        private List<CateringItem> shoppingCart = new List<CateringItem>();
         private Dictionary<decimal, int> changeToReturn = new Dictionary<decimal, int>();
       
         public Catering()
@@ -159,7 +159,7 @@ namespace Capstone.Classes
             foreach(decimal billOrCoin in currency)
             {
                 int numberOfBillOrCoin = 0;
-                while (AmountDueBack > billOrCoin)
+                while (AmountDueBack >= billOrCoin)
                 {
                     numberOfBillOrCoin++;
                     AmountDueBack -= billOrCoin;
