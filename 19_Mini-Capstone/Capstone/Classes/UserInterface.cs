@@ -162,7 +162,6 @@ namespace Capstone.Classes
                         catering.RemoveFromItem(userInputID, userInputAmount);
                         PrintShoppingCartMenu();
                         ShoppingCartMenuSelection();
-                        //fileAccess.Quantity_ID_NAME_PRODUCT_CODETracker(userInputAmount, CI.Name, userInputID); // reciept tracking method for items selected
                         break;
                     default:
                         Console.WriteLine();
