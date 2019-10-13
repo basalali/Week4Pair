@@ -66,7 +66,7 @@ namespace Capstone.Classes
         */
 
 
-        //public void AddMoneyTracker(string amountAdded, decimal cateringBalance)
+        //public void AddMoneyTracker()
         //{
         //    Catering catering = new Catering();
         //    string directory = @"C:\Catering";
@@ -77,8 +77,8 @@ namespace Capstone.Classes
         //    {
         //        using (StreamWriter sw = new StreamWriter(fullPath, true))
         //        {
-                                                                
-        //            sw.WriteLine(DateTime.Now + "ADD MONEY: " + amountAdded + catering.accountBalance);
+
+        //            sw.WriteLine(DateTime.Now + "ADD MONEY: " + amountAdded + catering.AccountBalance);
         //        }
         //    }
         //    catch (IOException ex)
