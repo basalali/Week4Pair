@@ -42,7 +42,6 @@ namespace Capstone.Classes
             }
             return shoppingItems;
         }
-<<<<<<< HEAD
         /*
      All purchases must be audited to track orders and amounts in the catering system
     Each purchase should generate a line in a file called ​Log.txt
@@ -73,8 +72,8 @@ namespace Capstone.Classes
                 using (StreamWriter sw = new StreamWriter(fullPath, true))
                 {
 
-                     result = ($"{DateTime.UtcNow} Add Money: {message} {catering.AccountBalance}");
-                     sw.WriteLine(result);
+                    result = ($"{DateTime.UtcNow} Add Money: {message} {catering.AccountBalance}");
+                    sw.WriteLine(result);
                 }
             }
             catch (IOException ex)
@@ -84,11 +83,8 @@ namespace Capstone.Classes
             return result;
         }
 
-
-
         public string Quantity_ID_NAME_PRODUCT_CODETracker(int quantity, string ID)
         {
-            
             //(number of items ordered, name of item, ID, total cost, current balance)
             string result = "";
             Catering catering = new Catering();
@@ -111,10 +107,6 @@ namespace Capstone.Classes
 
             return result;
         }
-=======
-    }
-}
->>>>>>> ed39e3de2e1000bb2a57e22f82f4f53f86394113
 
         public string GiveChangeTracker() // changetoreturn() where it deletes from account balance
         {
@@ -125,12 +117,11 @@ namespace Capstone.Classes
             string fileName = "log.txt";
             string fullPath = Path.Combine(directory, fileName);
 
-<<<<<<< HEAD
             try
             {
                 using (StreamWriter sw = new StreamWriter(fullPath, true))
                 {
-                    result = ($"{DateTime.UtcNow} GIVE CHANGE: {catering.AmountDueBack} {catering.AccountBalance}");
+                    result = ($"{DateTime.UtcNow} GIVE CHANGE: {catering.AccountBalance}");
                     sw.WriteLine(result);
                 }
             }
@@ -141,14 +132,9 @@ namespace Capstone.Classes
             return result;
         }
     }
-
-
-
-
-
-
 }
-=======
+
+
         /*
          All purchases must be audited to track orders and amounts in the catering system
         Each purchase should generate a line in a file called ​Log.txt
@@ -224,7 +210,5 @@ namespace Capstone.Classes
         //    {
         //        Console.WriteLine(ex.Message);
         //    }
-        //}
->>>>>>> ed39e3de2e1000bb2a57e22f82f4f53f86394113
-
+        //
 
