@@ -76,11 +76,13 @@ namespace Capstone.Classes
                         Console.WriteLine("Please insert money.");
                         string incomingMoney = Console.ReadLine();
                         AddMoney(incomingMoney);
+
                         PrintAddMoneyMenu();                       
                         fileAccess.AddMoneyTracker(incomingMoney); // records everytime someone inserts money! method is in fileaccess.
-                        AddMoneySelection();
-                      
-                            break;
+                        AddMoneySelection();                    
+                        PrintAddMoneyMenu();                                       
+                        break;
+
                     case "2":
                         Console.WriteLine();
                         Console.WriteLine("Please enter the product identifier code that you wish to purchase");
@@ -191,7 +193,6 @@ namespace Capstone.Classes
                         AddMoney(incomingMoney);
                         PrintAddMoneyMenu();
                         AddMoneySelection();
-
                         break;
                     default:
                         Console.WriteLine();
@@ -280,9 +281,8 @@ namespace Capstone.Classes
         }
       private void CalculateChangeToReturn()
         {
-            if (catering.AccountBalance - catering.ShoppingCartTotal >= 0)
+            if (catering.AccountBalance >= 0)
             {
-                catering.AmountDueBack = catering.AccountBalance - catering.ShoppingCartTotal;
                 catering.ChangeToReturn();
                 Console.WriteLine(catering.ChangeToReturnText());
 
@@ -295,7 +295,6 @@ namespace Capstone.Classes
                 PrintOrderMenu();
                 OrderSelection();
             }
-
         }
     }
 }

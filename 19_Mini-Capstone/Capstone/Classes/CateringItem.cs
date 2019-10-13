@@ -12,12 +12,11 @@ namespace Capstone.Classes
         public decimal Price { get; set; }
         public string Type { get; set; } = "";
         public int Quantity { get; set; } = 50;
-      
-       
+            
         public CateringItem()
         {
-
         }
+
         public CateringItem(string indentifierCode, string name, decimal price, string type)
         {
             Name = name;
@@ -26,12 +25,9 @@ namespace Capstone.Classes
             Type = type;
         }
 
-        public override string ToString()
-      
-        {
-        
-            return String.Format("{0, -5} {1, -30} {2, -15} {3, -15} {4, -15}", IdentifierCode, Name, Price, Type, Quantity);
-            
+        public override string ToString()      
+        {        
+            return String.Format("{0, -5} {1, -30} {2, -15} {3, -15} {4, -15}", IdentifierCode, Name, Price, Type, Quantity);          
         }
     }
 }
