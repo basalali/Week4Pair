@@ -43,27 +43,10 @@ namespace Capstone.Classes
             return shoppingItems;
         }
 
-        /*
-     All purchases must be audited to track orders and amounts in the catering system
-    Each purchase should generate a line in a file called ​Log.txt
-    The audit entry should include the date, time, action taken, and new customer balance
-    Actions Taken may be:
-    ADD MONEY
-    GIVE CHANGE
-    NUMBER_ORDERED PRODUCT_NAME PRODUCT_CODE
-    The audit entries should be in the format:
-        01/01/2019 12:00:00 PM ADD MONEY: $500.00 $500.00 (amount addded, current balance)
-        01/01/2019 12:00:15 PM ADD MONEY: $250.00 $750.00 ''      ''
-        01/01/2019 12:00:20 PM 15 Chicken E4 $112.50 $637.50  (number of items ordered, name of item, ID, total cost, current balance)
-        01/01/2019 12:01:25 PM 9 Red Wine B2 $29.25 $608.25
-        01/01/2019 12:01:35 PM GIVE CHANGE: $608.25 $0.00 (change given back current account balance)
-    */
-
-
         public string AddMoneyTracker(string message, decimal accountB)
         {
             string result = "";
-        
+
             string directory = @"C:\Catering";
             string fileName = "log.txt";
             string fullPath = Path.Combine(directory, fileName);
@@ -73,8 +56,9 @@ namespace Capstone.Classes
                 using (StreamWriter sw = new StreamWriter(fullPath, true))
                 {
 
-                     result = ($"{DateTime.UtcNow} Add Money: {message} {accountB}");
-                     sw.WriteLine(result);
+                    result = ($"{DateTime.UtcNow} Add Money: {message} {accountB}");
+                    sw.WriteLine(result);
+
                 }
             }
             catch (IOException ex)
@@ -85,13 +69,12 @@ namespace Capstone.Classes
         }
 
 
-
         public string Quantity_ID_NAME_PRODUCT_CODETracker(int quantity, string name, string ID, decimal accountB, decimal shoppingCartTotal)
         {
 
             //(number of items ordered, name of item, ID, total cost, current balance)
             string result = "";
-            
+
             string directory = @"C:\Catering";
             string fileName = "log.txt";
             string fullPath = Path.Combine(directory, fileName);
@@ -111,9 +94,9 @@ namespace Capstone.Classes
 
             return result;
         }
+
         public string GiveChangeTracker(decimal accountB) // changetoreturn() where it deletes from account balance
-        {
-            // 01/01/2019 12:01:35 PM GIVE CHANGE: $608.25 $0.00 (change given back current account balance)
+            { 
             string result = "";
            
             string s = "";
@@ -124,12 +107,8 @@ namespace Capstone.Classes
             try
             {
                 using (StreamWriter sw = new StreamWriter(fullPath, true))
-                {   
-                    //foreach(KeyValuePair<decimal, int> money in changeDueBack)
-                    //{
-                    //    s = s + ("$" + money.Value + "x" + money.Key + Environment.NewLine);
-                    //}
-                    result = ($"{DateTime.UtcNow} GIVE CHANGE: {accountB} {0.00}");
+                {                    
+                    result = ($"{DateTime.UtcNow} GIVEN CHANGE: {accountB} {0.00}");     
                     sw.WriteLine(result);
                 }
             }
@@ -140,20 +119,8 @@ namespace Capstone.Classes
             return result;
         }
 
-
-
-
-
-
     }
 }
-
-     
     
 
-
-
-
-
-        
-
+ 

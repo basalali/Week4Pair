@@ -62,7 +62,6 @@ namespace Capstone.Classes
 
         private void OrderSelection()
         {
-
             string directory = @"C:\Catering";
             string fileName = "log.txt";
             string fullPath = Path.Combine(directory, fileName);
@@ -150,8 +149,7 @@ namespace Capstone.Classes
         }
 
         private void ShoppingCartMenuSelection()
-        {
-            
+        {         
             string shoppingCartSelection = Console.ReadLine();
             while (shoppingCartSelection != "3")
             {
@@ -246,8 +244,7 @@ namespace Capstone.Classes
                     userInputID = userInputID.ToUpper();
                     Console.WriteLine();
                     Console.WriteLine("Please enter the number of items you wish to purchase.");
-                    int intuserInputAmount = Convert.ToInt32(Console.ReadLine());
-                  
+                    int intuserInputAmount = Convert.ToInt32(Console.ReadLine());                 
                 }
                 else if (!catering.ProductAvailable(userInputID, userInputAmount))
                 {
