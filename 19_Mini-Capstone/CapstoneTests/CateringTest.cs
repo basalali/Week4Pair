@@ -162,5 +162,21 @@ namespace CapstoneTests
             Assert.IsTrue(result);
 
         }
+
+        [TestMethod]
+        public void AddToShoppingCartTest()
+        {
+            Catering testClass = new Catering();
+
+            testClass.AddToShoppingCart("E2", 15);
+
+            bool result = testClass.SufficientStock("E2", 14);
+            Assert.IsTrue(result);
+
+            result = testClass.SufficientStock("E16", 14);
+            Assert.IsFalse(result);
+            
+
+        }
     }
 }
