@@ -153,14 +153,13 @@ namespace CapstoneTests
         public void RemoveFromItemTest()
         {
             Catering testClass = new Catering();
-            //List<string> result = new List<string>();
+           
+            testClass.RemoveFromItem("E1", 1);
+            bool result = testClass.SufficientStock("E1", 50);
+            Assert.IsFalse(result);
 
-            List<CateringItem> expected = new List<CateringItem>
-            {
-                {"E1", 50 }
-            };
-            //    (testClass.RemoveFromItem()
-            //expected.Add("E1", 1);
+            result = testClass.SufficientStock("E1", 49);
+            Assert.IsTrue(result);
 
         }
     }

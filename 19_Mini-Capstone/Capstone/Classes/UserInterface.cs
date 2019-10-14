@@ -74,11 +74,11 @@ namespace Capstone.Classes
                     case "1":
                         Console.WriteLine();
                         Console.WriteLine("Please insert money.");
-                        string incomingMoney = Console.ReadLine();
+                        string incomingMoney = Console.ReadLine();                   
                         AddMoney(incomingMoney);
                         PrintAddMoneyMenu();                       
                         fileAccess.AddMoneyTracker(incomingMoney, catering.AccountBalance); // records everytime someone inserts money! method is in fileaccess.
-                        AddMoneySelection();                    
+                        AddMoneySelection();
                         PrintAddMoneyMenu();                                       
                         break;
 
@@ -91,6 +91,7 @@ namespace Capstone.Classes
                         Console.WriteLine("Please enter the number of items you wish to purchase.");
                         int userInputAmount = Convert.ToInt32(Console.ReadLine());
                         ShoppingCartUI(userInputID, userInputAmount);
+                        fileAccess.Quantity_ID_NAME_PRODUCT_CODETracker(userInputAmount, userInputID);
                         catering.RemoveFromItem(userInputID, userInputAmount);
                         PrintShoppingCartMenu();
                         ShoppingCartMenuSelection();
@@ -191,6 +192,7 @@ namespace Capstone.Classes
                         Console.WriteLine("Please insert money.");
                         string incomingMoney = Console.ReadLine();
                         AddMoney(incomingMoney);
+                        fileAccess.AddMoneyTracker(incomingMoney, catering.AccountBalance);
                         PrintAddMoneyMenu();
                         AddMoneySelection();
                         break;
