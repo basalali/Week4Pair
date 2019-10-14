@@ -9,6 +9,7 @@ namespace Capstone.Classes
     {
         Catering catering = new Catering();
         FileAccess fileAccess = new FileAccess();
+       
 
         public void RunInterface()
         {
@@ -91,9 +92,17 @@ namespace Capstone.Classes
                         Console.WriteLine("Please enter the number of items you wish to purchase.");
                         int userInputAmount = Convert.ToInt32(Console.ReadLine());
                         ShoppingCartUI(userInputID, userInputAmount);
-                        fileAccess.Quantity_ID_NAME_PRODUCT_CODETracker(userInputAmount, userInputID);
+                        string name = "";
+                        foreach(CateringItem item in catering.GetShoppingCart())
+                         {
+                           if (item.IdentifierCode == userInputID)
+                            {
+                                name = name + item.Name;
+                            }                          
+                         }                        
+                        fileAccess.Quantity_ID_NAME_PRODUCT_CODETracker(userInputAmount, userInputID, name, catering.ShoppingCartTotal, catering.AccountBalance);
                         catering.RemoveFromItem(userInputID, userInputAmount);
-                        PrintShoppingCartMenu();
+                        PrintShoppingCartMenu(); 
                         ShoppingCartMenuSelection();
                         break;
                     default:
@@ -161,8 +170,16 @@ namespace Capstone.Classes
                         Console.WriteLine();
                         Console.WriteLine("Please enter the number of items you wish to purchase.");
                         int userInputAmount = Convert.ToInt32(Console.ReadLine());
-                        fileAccess.Quantity_ID_NAME_PRODUCT_CODETracker(userInputAmount, userInputID); // reciept tracking method for items selected
                         ShoppingCartUI(userInputID, userInputAmount);
+                        string name = "";
+                        foreach (CateringItem item in catering.GetShoppingCart())
+                        {
+                            if (item.IdentifierCode == userInputID)
+                            {
+                                name = name + item.Name;
+                            }
+                        }
+                        fileAccess.Quantity_ID_NAME_PRODUCT_CODETracker(userInputAmount, userInputID, name, catering.ShoppingCartTotal, catering.AccountBalance); // reciept tracking method for items selected
                         catering.RemoveFromItem(userInputID, userInputAmount);
                         PrintShoppingCartMenu();
                         ShoppingCartMenuSelection();

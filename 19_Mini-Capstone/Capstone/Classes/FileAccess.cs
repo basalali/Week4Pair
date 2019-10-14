@@ -86,12 +86,12 @@ namespace Capstone.Classes
 
 
 
-        public string Quantity_ID_NAME_PRODUCT_CODETracker(int quantity, string ID)
+        public string Quantity_ID_NAME_PRODUCT_CODETracker(int quantity, string name, string ID, decimal accountB, decimal shoppingCartTotal)
         {
 
             //(number of items ordered, name of item, ID, total cost, current balance)
             string result = "";
-            Catering catering = new Catering();
+            
             string directory = @"C:\Catering";
             string fileName = "log.txt";
             string fullPath = Path.Combine(directory, fileName);
@@ -100,7 +100,7 @@ namespace Capstone.Classes
             {
                 using (StreamWriter sw = new StreamWriter(fullPath, true))
                 {
-                    result = ($"{DateTime.UtcNow} {quantity} {catering.AccountBalance}");
+                    result = ($"{DateTime.UtcNow} {quantity} {ID} {name} {accountB} {shoppingCartTotal}");
                     sw.WriteLine(result);
                 }
             }

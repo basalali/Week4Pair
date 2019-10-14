@@ -10,8 +10,9 @@ namespace Capstone.Classes
         //public decimal AmountDueBack { get; set; }
         public decimal ShoppingCartTotal { get; set; }
 
+
         private List<CateringItem> items = new List<CateringItem>();
-        private List<CateringItem> shoppingCart = new List<CateringItem>();
+        private List<CateringItem> shoppingCart { get; set; } = new List<CateringItem>();
         public Dictionary<decimal, int> changeToReturn = new Dictionary<decimal, int>();
       
         public Catering()
