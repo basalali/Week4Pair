@@ -77,7 +77,7 @@ namespace Capstone.Classes
                         string incomingMoney = Console.ReadLine();
                         AddMoney(incomingMoney);
                         PrintAddMoneyMenu();                       
-                        fileAccess.AddMoneyTracker(incomingMoney); // records everytime someone inserts money! method is in fileaccess.
+                        fileAccess.AddMoneyTracker(incomingMoney, catering.AccountBalance); // records everytime someone inserts money! method is in fileaccess.
                         AddMoneySelection();                    
                         PrintAddMoneyMenu();                                       
                         break;
@@ -104,8 +104,9 @@ namespace Capstone.Classes
                 OrderSelection();
             }
             Console.WriteLine();
-            CalculateChangeToReturn();            
-            fileAccess.GiveChangeTracker();// records change given and current account balance.
+            fileAccess.GiveChangeTracker(catering.AccountBalance);// records change given and current account balance.
+            Console.WriteLine("Press enter to continue to a new transaction.");
+            CalculateChangeToReturn();                    
             Console.WriteLine("Press enter to continue to a new transaction.");
             Console.ReadLine();
 

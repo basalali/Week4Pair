@@ -149,6 +149,19 @@ namespace CapstoneTests
             CollectionAssert.AreEquivalent(expectedAnswer, result);
         }
 
-    }
+        [TestMethod]
+        public void RemoveFromItemTest()
+        {
+            Catering testClass = new Catering();
+            //List<string> result = new List<string>();
 
+            List<CateringItem> expected = new List<CateringItem>
+            {
+                {"E1", 50 }
+            };
+            //    (testClass.RemoveFromItem()
+            //expected.Add("E1", 1);
+
+        }
+    }
 }

@@ -60,10 +60,10 @@ namespace Capstone.Classes
     */
 
 
-        public string AddMoneyTracker(string message)
+        public string AddMoneyTracker(string message, decimal accountB)
         {
             string result = "";
-            Catering catering = new Catering();
+        
             string directory = @"C:\Catering";
             string fileName = "log.txt";
             string fullPath = Path.Combine(directory, fileName);
@@ -73,7 +73,7 @@ namespace Capstone.Classes
                 using (StreamWriter sw = new StreamWriter(fullPath, true))
                 {
 
-                     result = ($"{DateTime.UtcNow} Add Money: {message} {catering.AccountBalance}");
+                     result = ($"{DateTime.UtcNow} Add Money: {message} {accountB}");
                      sw.WriteLine(result);
                 }
             }
@@ -111,11 +111,12 @@ namespace Capstone.Classes
 
             return result;
         }
-        public string GiveChangeTracker() // changetoreturn() where it deletes from account balance
+        public string GiveChangeTracker(decimal accountB) // changetoreturn() where it deletes from account balance
         {
             // 01/01/2019 12:01:35 PM GIVE CHANGE: $608.25 $0.00 (change given back current account balance)
             string result = "";
-            Catering catering = new Catering();
+           
+            string s = "";
             string directory = @"C:\Catering";
             string fileName = "log.txt";
             string fullPath = Path.Combine(directory, fileName);
@@ -123,8 +124,12 @@ namespace Capstone.Classes
             try
             {
                 using (StreamWriter sw = new StreamWriter(fullPath, true))
-                {
-                    result = ($"{DateTime.UtcNow} GIVE CHANGE: {catering.ShoppingCartTotal} {catering.AccountBalance}");
+                {   
+                    //foreach(KeyValuePair<decimal, int> money in changeDueBack)
+                    //{
+                    //    s = s + ("$" + money.Value + "x" + money.Key + Environment.NewLine);
+                    //}
+                    result = ($"{DateTime.UtcNow} GIVE CHANGE: {accountB} {0.00}");
                     sw.WriteLine(result);
                 }
             }
